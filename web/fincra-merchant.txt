@@ -1,0 +1,4 @@
+https://sandboxapi.fincra.com/core/accounts/resolve
+{"success":true,"message":"Account resolve successful","data":null}https://sandboxapi.fincra.com/core/accounts/resolve
+{"success":true,"message":"Account resolve successful","data":null}https://sandboxapi.fincra.com/core/accounts/resolve
+{"success":true,"message":"Account resolve successful","data":null}

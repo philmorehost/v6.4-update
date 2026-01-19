@@ -1,0 +1,12 @@
+{"json-status":"success","status":"success","status-msg":"Account Upgraded to Api Successful"}
+
+{"json-status":"success","status":"failed","status-msg":"Bad Request"}
+
+{"json-status":"success","status":"failed","status-msg":"Bad Request"}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Account Cannot Be Downgraded, Contact Admin"}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Account Cannot Be Downgraded, Contact Admin"}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Account Cannot Be Downgraded, Contact Admin"}
+

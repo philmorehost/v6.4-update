@@ -1,0 +1,34 @@
+{"oldPin":"9193","newPin":"5269"}
+
+
+
+https://api.sandbox.sudo.cards/cards/690f41751fbdc03dc009548c/pin
+{"oldPin":"9193","newPin":"5864"}
+{"statusCode":404,"error":"Not Found","message":"Cannot POST /cards/690f41751fbdc03dc009548c/pin"}
+
+
+https://api.sandbox.sudo.cards/cards/690f41751fbdc03dc009548c/pin
+{"oldPin":"9193","newPin":"4871"}
+{"statusCode":404,"error":"Not Found","message":"Cannot POST /cards/690f41751fbdc03dc009548c/pin"}
+
+
+https://api.sandbox.sudo.cards/cards/690f41751fbdc03dc009548c/pin
+{"oldPin":"9193","newPin":"0865"}
+{"statusCode":404,"error":"Not Found","message":"Cannot POST /cards/690f41751fbdc03dc009548c/pin"}
+
+
+https://api.sandbox.sudo.cards/cards/690f41751fbdc03dc009548c/pin
+{"oldPin":"9193","newPin":"8219"}
+{"statusCode":200,"message":"Card pin changed successfully."}
+
+
+https://api.sandbox.sudo.cards/cards/690f41751fbdc03dc009548c/pin
+{"oldPin":"9193","newPin":"1820"}
+
+
+
+https://api.sandbox.sudo.cards/cards/690f41751fbdc03dc009548c/pin
+{"oldPin":"9193","newPin":"9784"}
+{"statusCode":200,"message":"Card pin changed successfully."}
+
+

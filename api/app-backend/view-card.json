@@ -1,0 +1,78 @@
+{"json-status":"success","status":"failed","status-msg":"Bad Request"}
+
+{"json-status":"success","status":"failed","status-msg":"User not exists","cards":[]}
+
+{"json-status":"success","status":"failed","status-msg":"User not exists","cards":[]}
+
+{"json-status":"success","status":"failed","status-msg":"User not exists 1 ","cards":[]}
+
+{"json-status":"success","status":"failed","status-msg":"User not exists 1 ","cards":[]}
+
+{"json-status":"success","status":"failed","status-msg":"User not exists 1 ","cards":[]}
+
+{"json-status":"success","status":"failed","status-msg":"User not exists 1 d","cards":[]}
+
+{"json-status":"success","status":"failed","status-msg":"Bad Request"}
+
+{"json-status":"success","status":"failed","status-msg":"Bad Request"}
+
+{"json-status":"success","status":"failed","status-msg":"User not exists","cards":[]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"465168548937092","type":"dollarcard","brand":"mastercard","name":"Abdulrahaman Habeebullahi","balance":"27.870000000000000000000000000000","currency":"NGN","card_number":"4177009811117075","validity":"12\/12","cvv":"876","pin":"1234","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":null,"status":"active"},{"reference":"367018097965443","type":"dollarcard","brand":"mastercard","name":" ","balance":"0.000000000000000000000000000000","currency":"NGN","card_number":"4177009811117075","validity":"12\/12","cvv":"876","pin":"1234","address":"","state":"","country":"","zipcode":"","callback_url":"","status":"active"},{"reference":"857873432195069","type":"dollarcard","brand":"mastercard","name":"Abdulrahaman Habeebullahi","balance":"0.000000000000000000000000000000","currency":"NGN","card_number":"4177009811117075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"blocked"},{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.000000000000000000000000000000","currency":"NGN","card_number":"4177009811117075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.000000000000000000000000000000","currency":"NGN","card_number":"4177009811117075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"failed","status-msg":"Bad Request"}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.000000000000000000000000000000","currency":"NGN","card_number":"4177009811117075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.00","currency":"NGN","card_number":"4177009811117075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.00","currency":"NGN","card_number":"4177009811117075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.00","currency":"NGN","card_number":"4177 0098 1111 7075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"857873432195069","type":"dollarcard","brand":"mastercard","name":"Abdulrahaman Habeebullahi","balance":"0.00","currency":"NGN","card_number":"4177 0098 1111 7075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"blocked"}]}
+
+{"json-status":"success","status":"failed","status-msg":"Bad Request"}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.00","currency":"NGN","card_number":"4177 0098 1111 7075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.00","currency":"NGN","card_number":"4177 0098 1111 7075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.00","currency":"NGN","card_number":"4177 0098 1111 7075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"789125140537043","type":"dollarcard","brand":"visa","name":"Abdulrahaman Habeebullahi","balance":"0.00","currency":"NGN","card_number":"4177 0098 1111 7075","validity":"12\/12","cvv":"876","pin":"12345678","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"367018097965443","type":"dollarcard","brand":"mastercard","name":" ","balance":"0.00","currency":"NGN","card_number":"4177 0098 1111 7075","validity":"12\/12","cvv":"876","pin":"1234","address":"","state":"","country":"","zipcode":"","callback_url":"","status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","reference":"465168548937092","date":"2025-09-11 20:42:41"}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"465168548937092","type":"dollarcard","brand":"mastercard","name":"Abdulrahaman Habeebullahi","balance":"27.87","currency":"NGN","card_number":"4177 0098 1111 7075","validity":"12\/12","cvv":"876","pin":"1234","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":null,"status":"active"}]}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","reference":"465168548937092","date":"2025-09-11 20:42:41"}
+
+{"json-status":"success","status":"success","status-msg":"Cards Retrieved Successfully","cards":[{"reference":"465168548937092","type":"dollarcard","brand":"mastercard","name":"Abdulrahaman Habeebullahi","balance":"27.87","currency":"NGN","card_number":"4177 0098 1111 7075","validity":"12\/12","cvv":"876","pin":"1234","address":"Suite 10, Emirate Plaza","state":"KWARA","country":"nigeria","zipcode":"240251","callback_url":null,"status":"active"}]}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Card Not Exists","reference":null,"date":null}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Card Not Exists","reference":null,"date":null}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Card Not Exists","reference":null,"date":null}
+
+{"json-status":"success","status":"failed","status-msg":null,"cards":null}
+
+{"json-status":"success","status":"failed","status-msg":null,"cards":null}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Card Not Exists","reference":null,"date":null}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Card Not Exists","reference":null,"date":null}
+
+{"json-status":"success","status":"failed","status-msg":"Virtual Card not Exists","cards":[]}
+
+{"json-status":"success","status":"failed","status-msg":"Virtual Card not Exists","cards":[]}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Card Not Exists","reference":null,"date":null}
+
+{"json-status":"success","status":"failed","status-msg":"Error: Card Not Exists","reference":null,"date":null}
+

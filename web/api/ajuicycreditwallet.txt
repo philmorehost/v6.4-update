@@ -1,0 +1,18 @@
+{"amount":14723100,"description":"Customer payin","type":"credit","wallet_id":null}
+{"message":"Unprocessable entity","errors":{"wallet_id":["This field is required.","not a string"]}}
+
+{"amount":1867856.598,"description":"Customer payin","type":"credit","wallet_id":null}
+{"message":"Unprocessable entity","errors":{"amount":["should be a positive integer"],"wallet_id":["This field is required.","not a string"]}}
+
+{"amount":2479680,"description":"Customer payin","type":"credit","wallet_id":null}
+{"message":"Unprocessable entity","errors":{"wallet_id":["This field is required.","not a string"]}}
+
+{"amount":2479680,"description":"Customer payin","type":"credit","wallet_id":null}
+{"message":"Unprocessable entity","errors":{"wallet_id":["This field is required.","not a string"]}}
+
+{"amount":1.0323912762937153,"description":"Customer payin","type":"credit","wallet_id":null}
+{"message":"Unprocessable entity","errors":{"amount":["should be a positive integer"],"wallet_id":["This field is required.","not a string"]}}
+
+{"amount":0.98,"description":"Customer payin","type":"credit","wallet_id":null}
+{"message":"Unprocessable entity","errors":{"amount":["should be a positive integer"],"wallet_id":["This field is required.","not a string"]}}
+

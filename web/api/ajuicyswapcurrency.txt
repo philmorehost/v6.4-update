@@ -1,0 +1,21 @@
+{"amount":"10000","source_currency":"NGN","target_currency":"USDT","quote_id":"b4a6f8f1-bdfa-4707-a5bd-a495cc2c90ed"}
+{"message":"insufficient funds in your wallet; kindly try with a lesser amount"}
+
+{"amount":"1402.2000","source_currency":"NGN","target_currency":"USDT","quote_id":"6800c265-bded-423c-81fb-443ab7052f6b"}
+{"message":"insufficient funds in your wallet; kindly try with a lesser amount"}
+
+{"amount":"1600","source_currency":"USDT","target_currency":"NGN","quote_id":"e55f2ffc-28aa-474f-bea4-1b8624a4c031"}
+{"message":"insufficient funds in your wallet; kindly try with a lesser amount"}
+
+{"amount":"1600","source_currency":"NGN","target_currency":"USDT","quote_id":"c761c5be-2f05-4498-8d8d-5c7d356a7781"}
+{"message":"insufficient funds in your wallet; kindly try with a lesser amount"}
+
+{"amount":"1600","source_currency":"NGN","target_currency":"USDT","quote_id":"7af1cca5-eb16-4aaa-93bd-493c2aecc5bb"}
+{"message":"insufficient funds in your wallet; kindly try with a lesser amount"}
+
+{"amount":"1600","source_currency":"NGN","target_currency":"USDT","quote_id":"bb3dee9e-466c-496b-872d-b505916c36b1"}
+{"message":"insufficient funds in your wallet; kindly try with a lesser amount"}
+
+{"amount":"1","source_currency":"USD","target_currency":"USDT","quote_id":"c8a8d1a4-2317-434c-80f5-62b806550b0b"}
+{"message":"insufficient funds in your wallet; kindly try with a lesser amount"}
+

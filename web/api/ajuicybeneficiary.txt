@@ -1,0 +1,81 @@
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"message":"Unprocessable entity","errors":{"address":["invalid crypto address"]}}
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"message":"Unprocessable entity","errors":{"address":["invalid crypto address"]}}
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"message":"Unprocessable entity","errors":{"address":["invalid crypto address"]}}
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"message":"Unprocessable entity","errors":{"address":["invalid crypto address"]}}
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"message":"Unprocessable entity","errors":{"address":["invalid crypto address"]}}
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"saddaTAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"message":"Unprocessable entity","errors":{"address":["invalid crypto address"]}}
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"TAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"data":{"id":"a3376d61-dc5f-4021-b77c-420ba0c165bb","label":null,"owner":{"id":"1adb89b0-1f4f-4711-b57a-bc78f709af80","type":"business"},"type":"crypto_address","address":"TAjGVc7okrJcFXn5guotWfYMKLribjkT1W","metadata":{"fireblocks":{"vault_account_id":"66403"},"app":"deposits","provider":"fireblocks","customer_id":"45883806-6079-4623-b5d0-7b8cf171a9c2","customer_name":"Habeebullahi Abdulrahaman","wallet_id":"ec060b26-f213-4610-abd8-e3b9f7f2499a"},"currency":"USDT","__struct__":"Elixir.PaymentMethod.Beneficiary.CryptoAddress","lifetime":"permanent","chain":"TRX","rail":null,"payment_method_id":"3952d58e-8f96-4bd5-9f85-96f80601d829"}}
+
+{"type":"crypto_address","label":"beebay usdt (trx) juicyway","currency":"USDT","chain":"TRX","address":"TAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"data":{"id":"dc345621-7f0f-4804-84da-2c390decdf45","label":null,"owner":{"id":"1adb89b0-1f4f-4711-b57a-bc78f709af80","type":"business"},"type":"crypto_address","address":"TAjGVc7okrJcFXn5guotWfYMKLribjkT1W","metadata":{"fireblocks":{"vault_account_id":"66403"},"app":"deposits","provider":"fireblocks","customer_id":"45883806-6079-4623-b5d0-7b8cf171a9c2","customer_name":"Habeebullahi Abdulrahaman","wallet_id":"ec060b26-f213-4610-abd8-e3b9f7f2499a"},"currency":"USDT","__struct__":"Elixir.PaymentMethod.Beneficiary.CryptoAddress","lifetime":"permanent","chain":"TRX","rail":null,"payment_method_id":"3952d58e-8f96-4bd5-9f85-96f80601d829"}}
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"TAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"data":{"id":"90ca0e71-90a6-4c91-94b9-6ee6719179ca","label":null,"owner":{"id":"1adb89b0-1f4f-4711-b57a-bc78f709af80","type":"business"},"type":"crypto_address","address":"TAjGVc7okrJcFXn5guotWfYMKLribjkT1W","metadata":{"fireblocks":{"vault_account_id":"66403"},"app":"deposits","provider":"fireblocks","customer_id":"45883806-6079-4623-b5d0-7b8cf171a9c2","customer_name":"Habeebullahi Abdulrahaman","wallet_id":"ec060b26-f213-4610-abd8-e3b9f7f2499a"},"currency":"USDT","__struct__":"Elixir.PaymentMethod.Beneficiary.CryptoAddress","lifetime":"permanent","chain":"TRX","rail":null,"payment_method_id":"3952d58e-8f96-4bd5-9f85-96f80601d829"}}
+
+{"type":"crypto_address","label":"beebay usdt (trx)","currency":"USDT","chain":"TRX","address":"TAjGVc7okrJcFXn5guotWfYMKLribjkT1W"}
+{"data":{"id":"da7aff71-63fa-4ca2-8596-8c7ad32a1341","label":null,"owner":{"id":"1adb89b0-1f4f-4711-b57a-bc78f709af80","type":"business"},"type":"crypto_address","address":"TAjGVc7okrJcFXn5guotWfYMKLribjkT1W","metadata":{"fireblocks":{"vault_account_id":"66403"},"app":"deposits","provider":"fireblocks","customer_id":"45883806-6079-4623-b5d0-7b8cf171a9c2","customer_name":"Habeebullahi Abdulrahaman","wallet_id":"ec060b26-f213-4610-abd8-e3b9f7f2499a"},"currency":"USDT","__struct__":"Elixir.PaymentMethod.Beneficiary.CryptoAddress","lifetime":"permanent","chain":"TRX","rail":null,"payment_method_id":"3952d58e-8f96-4bd5-9f85-96f80601d829"}}
+
+{"type":"crypto_address","label":"gddgd","currency":"USDT","chain":"TRX","address":"hfgdgdtg"}
+
+
+{"type":"crypto_address","label":"ssdhsijsjos","currency":"USDT","chain":"TRX","address":"esfsfsfs"}
+
+
+{"type":"crypto_address","label":"ssdhsijsjos","currency":"USDT","chain":"TRX","address":"esfsfsfs"}
+
+
+{"type":"crypto_address","label":"wkwkhwkw","currency":"USDT","chain":"TRX","address":"wjwkkwjkw"}
+
+

@@ -1,0 +1,2 @@
+[07-Jan-2025 16:22:25 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/alt-php74/sess_2735e98d1734425bd732cbe351497b26, O_RDWR) failed: No such file or directory (2) in /home/v5data/public_html/web/api/data.php on line 1
+[07-Jan-2025 16:22:25 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/alt-php74) in /home/v5data/public_html/web/api/data.php on line 1

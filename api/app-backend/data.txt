@@ -1,0 +1,12 @@
+{"username":"beebay","encoded-passkey":"81dc9bdb52d04dc20036dbd8313ed055","network":"mtn","phone":"08140985576","type":"shared-data","qty":"1gb "}
+
+{"username":"beebay","encoded-passkey":"81dc9bdb52d04dc20036dbd8313ed055","network":"mtn","phone":"08140985576","type":"shared-data","qty":"1gb "}
+
+{"username":"beebay","encoded-passkey":"81dc9bdb52d04dc20036dbd8313ed055","network":"mtn","phone":"08140985576","type":"shared-data","qty":"1gb "}
+
+{"username":"beebay","encoded-passkey":"81dc9bdb52d04dc20036dbd8313ed055","network":"mtn","phone":"08140985576","type":"shared-data","qty":"1gb "}
+
+{"username":"beebay","encoded-passkey":"81dc9bdb52d04dc20036dbd8313ed055","network":"airtel","phone":"08124232128","type":"dd-data","qty":"75mb_1day "}
+
+{"username":"beebay","encoded-passkey":"81dc9bdb52d04dc20036dbd8313ed055","network":"airtel","phone":"08124232128","type":"shared-data","qty":"1gb "}
+

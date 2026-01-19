@@ -1,0 +1,16 @@
+{"status":"inactive"}
+{"statusCode":404,"error":"Not Found","message":"Cannot POST /cards/690f41751fbdc03dc009548c/pin"}
+
+
+{"status":"inactive"}
+{"statusCode":400,"error":"Bad Request","message":[{"target":{"status":"inactive"},"property":"oldPin","children":[],"constraints":{"maxLength":"oldPin must be shorter than or equal to 4 characters","minLength":"oldPin must be longer than or equal to 4 characters","isString":"oldPin must be a string"}},{"target":{"status":"inactive"},"property":"newPin","children":[],"constraints":{"maxLength":"newPin must be shorter than or equal to 4 characters","minLength":"newPin must be longer than or equal to 4 characters","isString":"newPin must be a string"}}]}
+
+
+{"status":"inactive"}
+{"statusCode":200,"message":"Card updated successfully.","data":{"_id":"690f41751fbdc03dc009548c","business":"690eeec21fbdc03dc00945d1","customer":{"_id":"690f416b1fbdc03dc0095478","business":"690eeec21fbdc03dc00945d1","type":"individual","name":"Abdulrahaman Habeebullahi","phoneNumber":"08124232129","emailAddress":"beebayads@gmail.com","status":"active","individual":{"firstName":"Abdulrahaman","lastName":"Habeebullahi"},"billingAddress":{"line1":"Suite 10, Emirate Plaza","line2":"Suite 10, Emirate Plaza","city":"Suite 10, Emirate Plaza","state":"KWARA","country":"NG","postalCode":"240251"},"isDeleted":false,"createdAt":"2025-11-08T13:11:07.121Z","updatedAt":"2025-11-08T13:11:07.121Z","__v":0},"account":"690f416e1fbdc03dc0095484","fundingSource":"690eeec21fbdc03dc00945d7","type":"virtual","brand":"Verve","currency":"NGN","maskedPan":"506321*********8950","expiryMonth":"11","expiryYear":"2028","status":"inactive","spendingControls":{"channels":{"atm":true,"pos":true,"web":true,"mobile":true},"allowedCategories":[],"blockedCategories":[],"spendingLimits":[{"amount":1500000,"interval":"daily","categories":[]}]},"dummyAccount":{"currency":"NGN","bankCode":"999240","accountType":"Current","accountNumber":"5010533433"},"is2FAEnrolled":true,"updatedAt":"2025-11-10T15:43:16.901Z"}}
+
+
+{"status":"inactive"}
+{"statusCode":200,"message":"Card updated successfully.","data":{"_id":"690f41751fbdc03dc009548c","business":"690eeec21fbdc03dc00945d1","customer":{"_id":"690f416b1fbdc03dc0095478","business":"690eeec21fbdc03dc00945d1","type":"individual","name":"Abdulrahaman Habeebullahi","phoneNumber":"08124232129","emailAddress":"beebayads@gmail.com","status":"active","individual":{"firstName":"Abdulrahaman","lastName":"Habeebullahi"},"billingAddress":{"line1":"Suite 10, Emirate Plaza","line2":"Suite 10, Emirate Plaza","city":"Suite 10, Emirate Plaza","state":"KWARA","country":"NG","postalCode":"240251"},"isDeleted":false,"createdAt":"2025-11-08T13:11:07.121Z","updatedAt":"2025-11-08T13:11:07.121Z","__v":0},"account":"690f416e1fbdc03dc0095484","fundingSource":"690eeec21fbdc03dc00945d7","type":"virtual","brand":"Verve","currency":"NGN","maskedPan":"506321*********8950","expiryMonth":"11","expiryYear":"2028","status":"inactive","spendingControls":{"channels":{"atm":true,"pos":true,"web":true,"mobile":true},"allowedCategories":[],"blockedCategories":[],"spendingLimits":[{"amount":1500000,"interval":"daily","categories":[]}]},"dummyAccount":{"currency":"NGN","bankCode":"999240","accountType":"Current","accountNumber":"5010533433"},"is2FAEnrolled":true,"updatedAt":"2025-11-10T15:45:25.401Z"}}
+
+
