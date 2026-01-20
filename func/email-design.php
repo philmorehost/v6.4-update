@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
     function mailDesignTemplate($title, $message, $details_array){
     if(!empty(trim(strip_tags($title)))){
         $mail_title = trim(strip_tags($title));

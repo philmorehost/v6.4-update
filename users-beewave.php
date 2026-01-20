@@ -1,11 +1,13 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 include(__DIR__ . "/func/bc-connect.php");
 include(__DIR__ . "/func/bc-func.php");
 
 $catch_incoming_request = json_decode(file_get_contents("php://input"), true);
 
 //Select Vendor Table
-$select_vendor_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
+$select_vendor_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
 if (($select_vendor_table == true) && ($select_vendor_table["website_url"] == $_SERVER["HTTP_HOST"]) && ($select_vendor_table["status"] == 1)) {
 	$beewave_keys = mysqli_fetch_assoc(mysqli_query($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='" . $select_vendor_table["id"] . "' && gateway_name='beewave'"));
 	

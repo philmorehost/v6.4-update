@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 include("../func/bc-config.php");
 
 if (isset($_POST["regenerate"])) {
@@ -355,7 +357,7 @@ if (isset($_POST["regenerate"])) {
 										$mtn_api_id_statement .= "api_id='$mtn_api_id'" . "\n";
 									}
 									$mtn_api_id_statement = "(" . str_replace("\n", " OR ", trim($mtn_api_id_statement)) . ")";
-									$mtn_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $mtn_product_name . "' LIMIT 1"));
+									$mtn_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $mtn_product_name . "' LIMIT 1");
 									if (!empty($mtn_product_table["id"])) {
 										$mtn_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $mtn_api_id_statement && product_id='" . $mtn_product_table["id"] . "'");
 										$mtn_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $mtn_api_id_statement && product_id='" . $mtn_product_table["id"] . "'");
@@ -374,7 +376,7 @@ if (isset($_POST["regenerate"])) {
 										$airtel_api_id_statement .= "api_id='$airtel_api_id'" . "\n";
 									}
 									$airtel_api_id_statement = "(" . str_replace("\n", " OR ", trim($airtel_api_id_statement)) . ")";
-									$airtel_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $airtel_product_name . "' LIMIT 1"));
+									$airtel_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $airtel_product_name . "' LIMIT 1");
 									if (!empty($airtel_product_table["id"])) {
 										$airtel_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $airtel_api_id_statement && product_id='" . $airtel_product_table["id"] . "'");
 										$airtel_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $airtel_api_id_statement && product_id='" . $airtel_product_table["id"] . "'");
@@ -393,7 +395,7 @@ if (isset($_POST["regenerate"])) {
 										$etisalat_api_id_statement .= "api_id='$etisalat_api_id'" . "\n";
 									}
 									$etisalat_api_id_statement = "(" . str_replace("\n", " OR ", trim($etisalat_api_id_statement)) . ")";
-									$etisalat_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $etisalat_product_name . "' LIMIT 1"));
+									$etisalat_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $etisalat_product_name . "' LIMIT 1");
 									if (!empty($etisalat_product_table["id"])) {
 										$etisalat_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $etisalat_api_id_statement && product_id='" . $etisalat_product_table["id"] . "'");
 										$etisalat_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $etisalat_api_id_statement && product_id='" . $etisalat_product_table["id"] . "'");
@@ -412,7 +414,7 @@ if (isset($_POST["regenerate"])) {
 										$glo_api_id_statement .= "api_id='$glo_api_id'" . "\n";
 									}
 									$glo_api_id_statement = "(" . str_replace("\n", " OR ", trim($glo_api_id_statement)) . ")";
-									$glo_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $glo_product_name . "' LIMIT 1"));
+									$glo_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $glo_product_name . "' LIMIT 1");
 									if (!empty($glo_product_table["id"])) {
 										$glo_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $glo_api_id_statement && product_id='" . $glo_product_table["id"] . "'");
 										$glo_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $glo_api_id_statement && product_id='" . $glo_product_table["id"] . "'");
@@ -540,7 +542,7 @@ if (isset($_POST["regenerate"])) {
 									} else {
 										$mtn_api_id_statement = " api_id='' ";
 									}
-									$mtn_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $mtn_product_name . "' LIMIT 1"));
+									$mtn_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $mtn_product_name . "' LIMIT 1");
 									if (!empty($mtn_product_table["id"])) {
 										$mtn_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $mtn_api_id_statement && product_id='" . $mtn_product_table["id"] . "'");
 										$mtn_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $mtn_api_id_statement && product_id='" . $mtn_product_table["id"] . "'");
@@ -563,7 +565,7 @@ if (isset($_POST["regenerate"])) {
 									} else {
 										$airtel_api_id_statement = " api_id='' ";
 									}
-									$airtel_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $airtel_product_name . "' LIMIT 1"));
+									$airtel_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $airtel_product_name . "' LIMIT 1");
 									if (!empty($airtel_product_table["id"])) {
 										$airtel_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $airtel_api_id_statement && product_id='" . $airtel_product_table["id"] . "'");
 										$airtel_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $airtel_api_id_statement && product_id='" . $airtel_product_table["id"] . "'");
@@ -586,7 +588,7 @@ if (isset($_POST["regenerate"])) {
 									} else {
 										$etisalat_api_id_statement = " api_id='' ";
 									}
-									$etisalat_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $etisalat_product_name . "' LIMIT 1"));
+									$etisalat_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $etisalat_product_name . "' LIMIT 1");
 									if (!empty($etisalat_product_table["id"])) {
 										$etisalat_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $etisalat_api_id_statement && product_id='" . $etisalat_product_table["id"] . "'");
 										$etisalat_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $etisalat_api_id_statement && product_id='" . $etisalat_product_table["id"] . "'");
@@ -609,7 +611,7 @@ if (isset($_POST["regenerate"])) {
 									} else {
 										$glo_api_id_statement = " api_id='' ";
 									}
-									$glo_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $glo_product_name . "' LIMIT 1"));
+									$glo_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $glo_product_name . "' LIMIT 1");
 									if (!empty($glo_product_table["id"])) {
 										$glo_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $glo_api_id_statement && product_id='" . $glo_product_table["id"] . "'");
 										$glo_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $glo_api_id_statement && product_id='" . $glo_product_table["id"] . "'");
@@ -619,7 +621,7 @@ if (isset($_POST["regenerate"])) {
 									//MTN PRICE LISTING
 									if (isset($mtn_smart_product_discount_table) && (mysqli_num_rows($mtn_smart_product_discount_table) > 0)) {
 										while (($mtn_smart_details = mysqli_fetch_assoc($mtn_smart_product_discount_table)) && ($mtn_agent_details = mysqli_fetch_assoc($mtn_agent_product_discount_table)) && ($mtn_api_details = mysqli_fetch_assoc($mtn_api_product_discount_table))) {
-											$data_type_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $mtn_smart_details["api_id"] . "' LIMIT 1"));
+											$data_type_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $mtn_smart_details["api_id"] . "' LIMIT 1");
 											$product_tr_list .= '<tr>
 										<td>Internet Data</td><td>MTN</td><td>' . $mtn_product_table["product_name"] . '</td><td>' . $data_type_api_list["api_type"] . '</td><td>' . $mtn_smart_details["val_1"] . '</td><td>' . toDecimal($mtn_smart_details["val_2"], 2) . '</td><td>' . toDecimal($mtn_agent_details["val_2"], 2) . '</td><td>' . toDecimal($mtn_api_details["val_2"], 2) . '</td>
 									</tr>';
@@ -629,7 +631,7 @@ if (isset($_POST["regenerate"])) {
 									//AIRTEL PRICE LISTING
 									if (isset($airtel_smart_product_discount_table) && (mysqli_num_rows($airtel_smart_product_discount_table) > 0)) {
 										while (($airtel_smart_details = mysqli_fetch_assoc($airtel_smart_product_discount_table)) && ($airtel_agent_details = mysqli_fetch_assoc($airtel_agent_product_discount_table)) && ($airtel_api_details = mysqli_fetch_assoc($airtel_api_product_discount_table))) {
-											$data_type_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $airtel_smart_details["api_id"] . "' LIMIT 1"));
+											$data_type_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $airtel_smart_details["api_id"] . "' LIMIT 1");
 											$product_tr_list .= '<tr>
 										<td>Internet Data</td><td>Airtel</td><td>' . $airtel_product_table["product_name"] . '</td><td>' . $data_type_api_list["api_type"] . '</td><td>' . $airtel_smart_details["val_1"] . '</td><td>' . toDecimal($airtel_smart_details["val_2"], 2) . '</td><td>' . toDecimal($airtel_agent_details["val_2"], 2) . '</td><td>' . toDecimal($airtel_api_details["val_2"], 2) . '</td>
 									</tr>';
@@ -639,7 +641,7 @@ if (isset($_POST["regenerate"])) {
 									//ETISALAT PRICE LISTING
 									if (isset($etisalat_smart_product_discount_table) && (mysqli_num_rows($etisalat_smart_product_discount_table) > 0)) {
 										while (($etisalat_smart_details = mysqli_fetch_assoc($etisalat_smart_product_discount_table)) && ($etisalat_agent_details = mysqli_fetch_assoc($etisalat_agent_product_discount_table)) && ($etisalat_api_details = mysqli_fetch_assoc($etisalat_api_product_discount_table))) {
-											$data_type_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $etisalat_smart_details["api_id"] . "' LIMIT 1"));
+											$data_type_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $etisalat_smart_details["api_id"] . "' LIMIT 1");
 											$product_tr_list .= '<tr>
 										<td>Internet Data</td><td>9mobile</td><td>' . $etisalat_product_table["product_name"] . '</td><td>' . $data_type_api_list["api_type"] . '</td><td>' . $etisalat_smart_details["val_1"] . '</td><td>' . toDecimal($etisalat_smart_details["val_2"], 2) . '</td><td>' . toDecimal($etisalat_agent_details["val_2"], 2) . '</td><td>' . toDecimal($etisalat_api_details["val_2"], 2) . '</td>
 									</tr>';
@@ -649,7 +651,7 @@ if (isset($_POST["regenerate"])) {
 									//GLO PRICE LISTING
 									if (isset($glo_smart_product_discount_table) && (mysqli_num_rows($glo_smart_product_discount_table) > 0)) {
 										while (($glo_smart_details = mysqli_fetch_assoc($glo_smart_product_discount_table)) && ($glo_agent_details = mysqli_fetch_assoc($glo_agent_product_discount_table)) && ($glo_api_details = mysqli_fetch_assoc($glo_api_product_discount_table))) {
-											$data_type_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $glo_smart_details["api_id"] . "' LIMIT 1"));
+											$data_type_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $glo_smart_details["api_id"] . "' LIMIT 1");
 											$product_tr_list .= '<tr>
 										<td>Internet Data</td><td>GLO</td><td>' . $glo_product_table["product_name"] . '</td><td>' . $data_type_api_list["api_type"] . '</td><td>' . $glo_smart_details["val_1"] . '</td><td>' . toDecimal($glo_smart_details["val_2"], 2) . '</td><td>' . toDecimal($glo_agent_details["val_2"], 2) . '</td><td>' . toDecimal($glo_api_details["val_2"], 2) . '</td>
 									</tr>';
@@ -758,7 +760,7 @@ if (isset($_POST["regenerate"])) {
 										$startimes_api_id_statement .= "api_id='$startimes_api_id'" . "\n";
 									}
 									$startimes_api_id_statement = "(" . str_replace("\n", " OR ", trim($startimes_api_id_statement)) . ")";
-									$startimes_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $startimes_product_name . "' LIMIT 1"));
+									$startimes_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $startimes_product_name . "' LIMIT 1");
 									if (!empty($startimes_product_table["id"])) {
 										$startimes_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $startimes_api_id_statement && product_id='" . $startimes_product_table["id"] . "'");
 										$startimes_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $startimes_api_id_statement && product_id='" . $startimes_product_table["id"] . "'");
@@ -777,7 +779,7 @@ if (isset($_POST["regenerate"])) {
 										$dstv_api_id_statement .= "api_id='$dstv_api_id'" . "\n";
 									}
 									$dstv_api_id_statement = "(" . str_replace("\n", " OR ", trim($dstv_api_id_statement)) . ")";
-									$dstv_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $dstv_product_name . "' LIMIT 1"));
+									$dstv_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $dstv_product_name . "' LIMIT 1");
 									if (!empty($dstv_product_table["id"])) {
 										$dstv_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $dstv_api_id_statement && product_id='" . $dstv_product_table["id"] . "'");
 										$dstv_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $dstv_api_id_statement && product_id='" . $dstv_product_table["id"] . "'");
@@ -795,7 +797,7 @@ if (isset($_POST["regenerate"])) {
 										$gotv_api_id_statement .= "api_id='$gotv_api_id'" . "\n";
 									}
 									$gotv_api_id_statement = "(" . str_replace("\n", " OR ", trim($gotv_api_id_statement)) . ")";
-									$gotv_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $gotv_product_name . "' LIMIT 1"));
+									$gotv_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $gotv_product_name . "' LIMIT 1");
 									if (!empty($gotv_product_table["id"])) {
 										$gotv_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $gotv_api_id_statement && product_id='" . $gotv_product_table["id"] . "'");
 										$gotv_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $gotv_api_id_statement && product_id='" . $gotv_product_table["id"] . "'");
@@ -813,7 +815,7 @@ if (isset($_POST["regenerate"])) {
 										$showmax_api_id_statement .= "api_id='$showmax_api_id'" . "\n";
 									}
 									$showmax_api_id_statement = "(" . str_replace("\n", " OR ", trim($showmax_api_id_statement)) . ")";
-									$showmax_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $showmax_product_name . "' LIMIT 1"));
+									$showmax_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $showmax_product_name . "' LIMIT 1");
 									if (!empty($showmax_product_table["id"])) {
 										$showmax_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $showmax_api_id_statement && product_id='" . $showmax_product_table["id"] . "'");
 										$showmax_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $showmax_api_id_statement && product_id='" . $showmax_product_table["id"] . "'");
@@ -936,7 +938,7 @@ if (isset($_POST["regenerate"])) {
 										$waec_api_id_statement .= "api_id='$waec_api_id'" . "\n";
 									}
 									$waec_api_id_statement = "(" . str_replace("\n", " OR ", trim($waec_api_id_statement)) . ")";
-									$waec_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $waec_product_name . "' LIMIT 1"));
+									$waec_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $waec_product_name . "' LIMIT 1");
 									if (!empty($waec_product_table["id"])) {
 										$waec_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $waec_api_id_statement && product_id='" . $waec_product_table["id"] . "'");
 										$waec_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $waec_api_id_statement && product_id='" . $waec_product_table["id"] . "'");
@@ -955,7 +957,7 @@ if (isset($_POST["regenerate"])) {
 										$neco_api_id_statement .= "api_id='$neco_api_id'" . "\n";
 									}
 									$neco_api_id_statement = "(" . str_replace("\n", " OR ", trim($neco_api_id_statement)) . ")";
-									$neco_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $neco_product_name . "' LIMIT 1"));
+									$neco_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $neco_product_name . "' LIMIT 1");
 									if (!empty($neco_product_table["id"])) {
 										$neco_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $neco_api_id_statement && product_id='" . $neco_product_table["id"] . "'");
 										$neco_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $neco_api_id_statement && product_id='" . $neco_product_table["id"] . "'");
@@ -974,7 +976,7 @@ if (isset($_POST["regenerate"])) {
 										$nabteb_api_id_statement .= "api_id='$nabteb_api_id'" . "\n";
 									}
 									$nabteb_api_id_statement = "(" . str_replace("\n", " OR ", trim($nabteb_api_id_statement)) . ")";
-									$nabteb_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $nabteb_product_name . "' LIMIT 1"));
+									$nabteb_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $nabteb_product_name . "' LIMIT 1");
 									if (!empty($nabteb_product_table["id"])) {
 										$nabteb_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $nabteb_api_id_statement && product_id='" . $nabteb_product_table["id"] . "'");
 										$nabteb_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $nabteb_api_id_statement && product_id='" . $nabteb_product_table["id"] . "'");
@@ -993,7 +995,7 @@ if (isset($_POST["regenerate"])) {
 										$jamb_api_id_statement .= "api_id='$jamb_api_id'" . "\n";
 									}
 									$jamb_api_id_statement = "(" . str_replace("\n", " OR ", trim($jamb_api_id_statement)) . ")";
-									$jamb_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $jamb_product_name . "' LIMIT 1"));
+									$jamb_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $jamb_product_name . "' LIMIT 1");
 									if (!empty($jamb_product_table["id"])) {
 										$jamb_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $jamb_api_id_statement && product_id='" . $jamb_product_table["id"] . "'");
 										$jamb_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $jamb_api_id_statement && product_id='" . $jamb_product_table["id"] . "'");
@@ -1148,7 +1150,7 @@ if (isset($_POST["regenerate"])) {
 										$ekedc_api_id_statement .= "api_id='$ekedc_api_id'" . "\n";
 									}
 									$ekedc_api_id_statement = "(" . str_replace("\n", " OR ", trim($ekedc_api_id_statement)) . ")";
-									$ekedc_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $ekedc_product_name . "' LIMIT 1"));
+									$ekedc_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $ekedc_product_name . "' LIMIT 1");
 									if (!empty($ekedc_product_table["id"])) {
 										$ekedc_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $ekedc_api_id_statement && product_id='" . $ekedc_product_table["id"] . "'");
 										$ekedc_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $ekedc_api_id_statement && product_id='" . $ekedc_product_table["id"] . "'");
@@ -1167,7 +1169,7 @@ if (isset($_POST["regenerate"])) {
 										$eedc_api_id_statement .= "api_id='$eedc_api_id'" . "\n";
 									}
 									$eedc_api_id_statement = "(" . str_replace("\n", " OR ", trim($eedc_api_id_statement)) . ")";
-									$eedc_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $eedc_product_name . "' LIMIT 1"));
+									$eedc_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $eedc_product_name . "' LIMIT 1");
 									if (!empty($eedc_product_table["id"])) {
 										$eedc_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $eedc_api_id_statement && product_id='" . $eedc_product_table["id"] . "'");
 										$eedc_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $eedc_api_id_statement && product_id='" . $eedc_product_table["id"] . "'");
@@ -1186,7 +1188,7 @@ if (isset($_POST["regenerate"])) {
 										$ikedc_api_id_statement .= "api_id='$ikedc_api_id'" . "\n";
 									}
 									$ikedc_api_id_statement = "(" . str_replace("\n", " OR ", trim($ikedc_api_id_statement)) . ")";
-									$ikedc_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $ikedc_product_name . "' LIMIT 1"));
+									$ikedc_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $ikedc_product_name . "' LIMIT 1");
 									if (!empty($ikedc_product_table["id"])) {
 										$ikedc_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $ikedc_api_id_statement && product_id='" . $ikedc_product_table["id"] . "'");
 										$ikedc_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $ikedc_api_id_statement && product_id='" . $ikedc_product_table["id"] . "'");
@@ -1205,7 +1207,7 @@ if (isset($_POST["regenerate"])) {
 										$jedc_api_id_statement .= "api_id='$jedc_api_id'" . "\n";
 									}
 									$jedc_api_id_statement = "(" . str_replace("\n", " OR ", trim($jedc_api_id_statement)) . ")";
-									$jedc_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $jedc_product_name . "' LIMIT 1"));
+									$jedc_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $jedc_product_name . "' LIMIT 1");
 									if (!empty($jedc_product_table["id"])) {
 										$jedc_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $jedc_api_id_statement && product_id='" . $jedc_product_table["id"] . "'");
 										$jedc_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $jedc_api_id_statement && product_id='" . $jedc_product_table["id"] . "'");
@@ -1224,7 +1226,7 @@ if (isset($_POST["regenerate"])) {
 										$kedco_api_id_statement .= "api_id='$kedco_api_id'" . "\n";
 									}
 									$kedco_api_id_statement = "(" . str_replace("\n", " OR ", trim($kedco_api_id_statement)) . ")";
-									$kedco_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $kedco_product_name . "' LIMIT 1"));
+									$kedco_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $kedco_product_name . "' LIMIT 1");
 									if (!empty($kedco_product_table["id"])) {
 										$kedco_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $kedco_api_id_statement && product_id='" . $kedco_product_table["id"] . "'");
 										$kedco_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $kedco_api_id_statement && product_id='" . $kedco_product_table["id"] . "'");
@@ -1243,7 +1245,7 @@ if (isset($_POST["regenerate"])) {
 										$ibedc_api_id_statement .= "api_id='$ibedc_api_id'" . "\n";
 									}
 									$ibedc_api_id_statement = "(" . str_replace("\n", " OR ", trim($ibedc_api_id_statement)) . ")";
-									$ibedc_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $ibedc_product_name . "' LIMIT 1"));
+									$ibedc_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $ibedc_product_name . "' LIMIT 1");
 									if (!empty($ibedc_product_table["id"])) {
 										$ibedc_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $ibedc_api_id_statement && product_id='" . $ibedc_product_table["id"] . "'");
 										$ibedc_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $ibedc_api_id_statement && product_id='" . $ibedc_product_table["id"] . "'");
@@ -1262,7 +1264,7 @@ if (isset($_POST["regenerate"])) {
 										$phed_api_id_statement .= "api_id='$phed_api_id'" . "\n";
 									}
 									$phed_api_id_statement = "(" . str_replace("\n", " OR ", trim($phed_api_id_statement)) . ")";
-									$phed_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $phed_product_name . "' LIMIT 1"));
+									$phed_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $phed_product_name . "' LIMIT 1");
 									if (!empty($phed_product_table["id"])) {
 										$phed_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $phed_api_id_statement && product_id='" . $phed_product_table["id"] . "'");
 										$phed_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $phed_api_id_statement && product_id='" . $phed_product_table["id"] . "'");
@@ -1281,7 +1283,7 @@ if (isset($_POST["regenerate"])) {
 										$aedc_api_id_statement .= "api_id='$aedc_api_id'" . "\n";
 									}
 									$aedc_api_id_statement = "(" . str_replace("\n", " OR ", trim($aedc_api_id_statement)) . ")";
-									$aedc_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $aedc_product_name . "' LIMIT 1"));
+									$aedc_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $aedc_product_name . "' LIMIT 1");
 									if (!empty($aedc_product_table["id"])) {
 										$aedc_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $aedc_api_id_statement && product_id='" . $aedc_product_table["id"] . "'");
 										$aedc_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $aedc_api_id_statement && product_id='" . $aedc_product_table["id"] . "'");
@@ -1300,7 +1302,7 @@ if (isset($_POST["regenerate"])) {
 										$yedc_api_id_statement .= "api_id='$yedc_api_id'" . "\n";
 									}
 									$yedc_api_id_statement = "(" . str_replace("\n", " OR ", trim($yedc_api_id_statement)) . ")";
-									$yedc_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $yedc_product_name . "' LIMIT 1"));
+									$yedc_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $yedc_product_name . "' LIMIT 1");
 									if (!empty($yedc_product_table["id"])) {
 										$yedc_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $yedc_api_id_statement && product_id='" . $yedc_product_table["id"] . "'");
 										$yedc_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $yedc_api_id_statement && product_id='" . $yedc_product_table["id"] . "'");
@@ -1319,7 +1321,7 @@ if (isset($_POST["regenerate"])) {
 										$bedc_api_id_statement .= "api_id='$bedc_api_id'" . "\n";
 									}
 									$bedc_api_id_statement = "(" . str_replace("\n", " OR ", trim($bedc_api_id_statement)) . ")";
-									$bedc_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $bedc_product_name . "' LIMIT 1"));
+									$bedc_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $bedc_product_name . "' LIMIT 1");
 									if (!empty($bedc_product_table["id"])) {
 										$bedc_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $bedc_api_id_statement && product_id='" . $bedc_product_table["id"] . "'");
 										$bedc_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $bedc_api_id_statement && product_id='" . $bedc_product_table["id"] . "'");
@@ -1338,7 +1340,7 @@ if (isset($_POST["regenerate"])) {
 										$aba_api_id_statement .= "api_id='$aba_api_id'" . "\n";
 									}
 									$aba_api_id_statement = "(" . str_replace("\n", " OR ", trim($aba_api_id_statement)) . ")";
-									$aba_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $aba_product_name . "' LIMIT 1"));
+									$aba_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $aba_product_name . "' LIMIT 1");
 									if (!empty($aba_product_table["id"])) {
 										$aba_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $aba_api_id_statement && product_id='" . $aba_product_table["id"] . "'");
 										$aba_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $aba_api_id_statement && product_id='" . $aba_product_table["id"] . "'");
@@ -1357,7 +1359,7 @@ if (isset($_POST["regenerate"])) {
 										$kaedco_api_id_statement .= "api_id='$kaedco_api_id'" . "\n";
 									}
 									$kaedco_api_id_statement = "(" . str_replace("\n", " OR ", trim($kaedco_api_id_statement)) . ")";
-									$kaedco_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $kaedco_product_name . "' LIMIT 1"));
+									$kaedco_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $kaedco_product_name . "' LIMIT 1");
 									if (!empty($kaedco_product_table["id"])) {
 										$kaedco_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $kaedco_api_id_statement && product_id='" . $kaedco_product_table["id"] . "'");
 										$kaedco_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $kaedco_api_id_statement && product_id='" . $kaedco_product_table["id"] . "'");
@@ -1560,7 +1562,7 @@ if (isset($_POST["regenerate"])) {
 										$mtn_api_id_statement .= "api_id='$mtn_api_id'" . "\n";
 									}
 									$mtn_api_id_statement = "(" . str_replace("\n", " OR ", trim($mtn_api_id_statement)) . ")";
-									$mtn_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $mtn_product_name . "' LIMIT 1"));
+									$mtn_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $mtn_product_name . "' LIMIT 1");
 									if (!empty($mtn_product_table["id"])) {
 										$mtn_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $mtn_api_id_statement && product_id='" . $mtn_product_table["id"] . "'");
 										$mtn_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $mtn_api_id_statement && product_id='" . $mtn_product_table["id"] . "'");
@@ -1579,7 +1581,7 @@ if (isset($_POST["regenerate"])) {
 										$airtel_api_id_statement .= "api_id='$airtel_api_id'" . "\n";
 									}
 									$airtel_api_id_statement = "(" . str_replace("\n", " OR ", trim($airtel_api_id_statement)) . ")";
-									$airtel_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $airtel_product_name . "' LIMIT 1"));
+									$airtel_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $airtel_product_name . "' LIMIT 1");
 									if (!empty($airtel_product_table["id"])) {
 										$airtel_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $airtel_api_id_statement && product_id='" . $airtel_product_table["id"] . "'");
 										$airtel_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $airtel_api_id_statement && product_id='" . $airtel_product_table["id"] . "'");
@@ -1598,7 +1600,7 @@ if (isset($_POST["regenerate"])) {
 										$etisalat_api_id_statement .= "api_id='$etisalat_api_id'" . "\n";
 									}
 									$etisalat_api_id_statement = "(" . str_replace("\n", " OR ", trim($etisalat_api_id_statement)) . ")";
-									$etisalat_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $etisalat_product_name . "' LIMIT 1"));
+									$etisalat_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $etisalat_product_name . "' LIMIT 1");
 									if (!empty($etisalat_product_table["id"])) {
 										$etisalat_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $etisalat_api_id_statement && product_id='" . $etisalat_product_table["id"] . "'");
 										$etisalat_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $etisalat_api_id_statement && product_id='" . $etisalat_product_table["id"] . "'");
@@ -1617,7 +1619,7 @@ if (isset($_POST["regenerate"])) {
 										$glo_api_id_statement .= "api_id='$glo_api_id'" . "\n";
 									}
 									$glo_api_id_statement = "(" . str_replace("\n", " OR ", trim($glo_api_id_statement)) . ")";
-									$glo_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $glo_product_name . "' LIMIT 1"));
+									$glo_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $glo_product_name . "' LIMIT 1");
 									if (!empty($glo_product_table["id"])) {
 										$glo_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $glo_api_id_statement && product_id='" . $glo_product_table["id"] . "'");
 										$glo_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $glo_api_id_statement && product_id='" . $glo_product_table["id"] . "'");
@@ -1627,7 +1629,7 @@ if (isset($_POST["regenerate"])) {
 									//MTN PRICE LISTING
 									if (isset($mtn_smart_product_discount_table) && (mysqli_num_rows($mtn_smart_product_discount_table) > 0)) {
 										while (($mtn_smart_details = mysqli_fetch_assoc($mtn_smart_product_discount_table)) && ($mtn_agent_details = mysqli_fetch_assoc($mtn_agent_product_discount_table)) && ($mtn_api_details = mysqli_fetch_assoc($mtn_api_product_discount_table))) {
-											$data_type_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $mtn_smart_details["api_id"] . "' LIMIT 1"));
+											$data_type_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $mtn_smart_details["api_id"] . "' LIMIT 1");
 											$product_tr_list .= '<tr>
                                         <td>Card</td><td>MTN</td><td>' . $mtn_product_table["product_name"] . '</td><td>' . $data_type_api_list["api_type"] . '</td><td>' . $mtn_smart_details["val_1"] . '</td><td>' . toDecimal($mtn_smart_details["val_2"], 2) . '</td><td>' . toDecimal($mtn_agent_details["val_2"], 2) . '</td><td>' . toDecimal($mtn_api_details["val_2"], 2) . '</td>
                                     </tr>';
@@ -1637,7 +1639,7 @@ if (isset($_POST["regenerate"])) {
 									//AIRTEL PRICE LISTING
 									if (isset($airtel_smart_product_discount_table) && (mysqli_num_rows($airtel_smart_product_discount_table) > 0)) {
 										while (($airtel_smart_details = mysqli_fetch_assoc($airtel_smart_product_discount_table)) && ($airtel_agent_details = mysqli_fetch_assoc($airtel_agent_product_discount_table)) && ($airtel_api_details = mysqli_fetch_assoc($airtel_api_product_discount_table))) {
-											$data_type_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $airtel_smart_details["api_id"] . "' LIMIT 1"));
+											$data_type_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $airtel_smart_details["api_id"] . "' LIMIT 1");
 											$product_tr_list .= '<tr>
                                         <td>Card</td><td>Airtel</td><td>' . $airtel_product_table["product_name"] . '</td><td>' . $data_type_api_list["api_type"] . '</td><td>' . $airtel_smart_details["val_1"] . '</td><td>' . toDecimal($airtel_smart_details["val_2"], 2) . '</td><td>' . toDecimal($airtel_agent_details["val_2"], 2) . '</td><td>' . toDecimal($airtel_api_details["val_2"], 2) . '</td>
                                     </tr>';
@@ -1647,7 +1649,7 @@ if (isset($_POST["regenerate"])) {
 									//ETISALAT PRICE LISTING
 									if (isset($etisalat_smart_product_discount_table) && (mysqli_num_rows($etisalat_smart_product_discount_table) > 0)) {
 										while (($etisalat_smart_details = mysqli_fetch_assoc($etisalat_smart_product_discount_table)) && ($etisalat_agent_details = mysqli_fetch_assoc($etisalat_agent_product_discount_table)) && ($etisalat_api_details = mysqli_fetch_assoc($etisalat_api_product_discount_table))) {
-											$data_type_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $etisalat_smart_details["api_id"] . "' LIMIT 1"));
+											$data_type_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $etisalat_smart_details["api_id"] . "' LIMIT 1");
 											$product_tr_list .= '<tr>
                                         <td>Card</td><td>9mobile</td><td>' . $etisalat_product_table["product_name"] . '</td><td>' . $data_type_api_list["api_type"] . '</td><td>' . $etisalat_smart_details["val_1"] . '</td><td>' . toDecimal($etisalat_smart_details["val_2"], 2) . '</td><td>' . toDecimal($etisalat_agent_details["val_2"], 2) . '</td><td>' . toDecimal($etisalat_api_details["val_2"], 2) . '</td>
                                     </tr>';
@@ -1657,7 +1659,7 @@ if (isset($_POST["regenerate"])) {
 									//GLO PRICE LISTING
 									if (isset($glo_smart_product_discount_table) && (mysqli_num_rows($glo_smart_product_discount_table) > 0)) {
 										while (($glo_smart_details = mysqli_fetch_assoc($glo_smart_product_discount_table)) && ($glo_agent_details = mysqli_fetch_assoc($glo_agent_product_discount_table)) && ($glo_api_details = mysqli_fetch_assoc($glo_api_product_discount_table))) {
-											$data_type_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $glo_smart_details["api_id"] . "' LIMIT 1"));
+											$data_type_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $glo_smart_details["api_id"] . "' LIMIT 1");
 											$product_tr_list .= '<tr>
                                         <td>Card</td><td>GLO</td><td>' . $glo_product_table["product_name"] . '</td><td>' . $data_type_api_list["api_type"] . '</td><td>' . $glo_smart_details["val_1"] . '</td><td>' . toDecimal($glo_smart_details["val_2"], 2) . '</td><td>' . toDecimal($glo_agent_details["val_2"], 2) . '</td><td>' . toDecimal($glo_api_details["val_2"], 2) . '</td>
                                     </tr>';
@@ -1778,7 +1780,7 @@ if (isset($_POST["regenerate"])) {
 										$mtn_api_id_statement .= "api_id='$mtn_api_id'" . "\n";
 									}
 									$mtn_api_id_statement = "(" . str_replace("\n", " OR ", trim($mtn_api_id_statement)) . ")";
-									$mtn_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $mtn_product_name . "' LIMIT 1"));
+									$mtn_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $mtn_product_name . "' LIMIT 1");
 									if (!empty($mtn_product_table["id"])) {
 										$mtn_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $mtn_api_id_statement && product_id='" . $mtn_product_table["id"] . "'");
 										$mtn_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $mtn_api_id_statement && product_id='" . $mtn_product_table["id"] . "'");
@@ -1797,7 +1799,7 @@ if (isset($_POST["regenerate"])) {
 										$airtel_api_id_statement .= "api_id='$airtel_api_id'" . "\n";
 									}
 									$airtel_api_id_statement = "(" . str_replace("\n", " OR ", trim($airtel_api_id_statement)) . ")";
-									$airtel_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $airtel_product_name . "' LIMIT 1"));
+									$airtel_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $airtel_product_name . "' LIMIT 1");
 									if (!empty($airtel_product_table["id"])) {
 										$airtel_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $airtel_api_id_statement && product_id='" . $airtel_product_table["id"] . "'");
 										$airtel_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $airtel_api_id_statement && product_id='" . $airtel_product_table["id"] . "'");
@@ -1816,7 +1818,7 @@ if (isset($_POST["regenerate"])) {
 										$etisalat_api_id_statement .= "api_id='$etisalat_api_id'" . "\n";
 									}
 									$etisalat_api_id_statement = "(" . str_replace("\n", " OR ", trim($etisalat_api_id_statement)) . ")";
-									$etisalat_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $etisalat_product_name . "' LIMIT 1"));
+									$etisalat_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $etisalat_product_name . "' LIMIT 1");
 									if (!empty($etisalat_product_table["id"])) {
 										$etisalat_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $etisalat_api_id_statement && product_id='" . $etisalat_product_table["id"] . "'");
 										$etisalat_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $etisalat_api_id_statement && product_id='" . $etisalat_product_table["id"] . "'");
@@ -1835,7 +1837,7 @@ if (isset($_POST["regenerate"])) {
 										$glo_api_id_statement .= "api_id='$glo_api_id'" . "\n";
 									}
 									$glo_api_id_statement = "(" . str_replace("\n", " OR ", trim($glo_api_id_statement)) . ")";
-									$glo_product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $glo_product_name . "' LIMIT 1"));
+									$glo_product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $glo_product_name . "' LIMIT 1");
 									if (!empty($glo_product_table["id"])) {
 										$glo_smart_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_smart_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $glo_api_id_statement && product_id='" . $glo_product_table["id"] . "'");
 										$glo_agent_product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_agent_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && $glo_api_id_statement && product_id='" . $glo_product_table["id"] . "'");

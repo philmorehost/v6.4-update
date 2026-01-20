@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-admin-config.php");
 	
 	$kyc_verification_array = array("bvn", "nin");
@@ -200,7 +202,7 @@
 			<form method="post" action="">
 				<?php
 					foreach($kyc_verification_array as $verification_name){
-						$get_verification_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_kyc_verifications WHERE vendor_id='".$get_logged_admin_details["id"]."' && verification_name='$verification_name'"));
+						$get_verification_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_kyc_verifications WHERE vendor_id='".$get_logged_admin_details["id"]."' && verification_name='$verification_name'");
 						if(in_array($get_verification_details["status"], array(1, 2))){
 							if($get_verification_details["status"] == 1){
 								$verification_checkbox_value = "checked";
@@ -237,7 +239,7 @@
             <form method="post" action="">
                 <?php
                     foreach($payment_gateway_array as $gateway_name){
-                        $get_gateway_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='".$get_logged_admin_details["id"]."' && gateway_name='$gateway_name'"));
+                        $get_gateway_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='".$get_logged_admin_details["id"]."' && gateway_name='$gateway_name'");
                         if(in_array($get_gateway_details["status"], array(1, 2))){
                             if($get_gateway_details["status"] == 1){
                                 $gateway_checkbox_value = "checked";

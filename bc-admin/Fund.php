@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-admin-config.php");
         
     $payment_gateway_array = array("monnify", "flutterwave", "paystack");
@@ -155,7 +157,7 @@
                 <div style="text-align: center; user-select: auto;" class="container col-12 col-lg-8 justify-items-center justify-content-between">
                     <?php
                         foreach($payment_gateway_array as $gateway_name){
-                            $get_gateway_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin_payment_gateways WHERE gateway_name='$gateway_name'"));
+                            $get_gateway_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin_payment_gateways WHERE gateway_name='$gateway_name'");
                             if(in_array($get_gateway_details["status"], array(1, 2))){
                                 if($get_gateway_details["status"] == 1){
                                     $gateway_status = '<img alt="'.ucwords(trim($get_gateway_details["gateway_name"])).'" id="'.strtolower(trim($get_gateway_details["gateway_name"])).'-lg" product-status="enabled" gateway-public="'.trim($get_gateway_details["public_key"]).'" gateway-encrypt="'.trim($get_gateway_details["encrypt_key"]).'" gateway-int="'.trim($get_gateway_details["percentage"]).'" product-name-array="'.implode(",",$payment_gateway_array).'" src="/asset/'.strtolower(trim($get_gateway_details["gateway_name"])).'.jpg" onclick="vtickPaymentGateway(this, `'.strtolower(trim($get_gateway_details["gateway_name"])).'`, `gatewayname`, `fundProceedBtn`, `jpg`);" class="col-2 rounded-5 border m-1"/>';

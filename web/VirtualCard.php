@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 include("../func/bc-config.php");
 
 if (isset($_POST["buy-card"])) {
@@ -96,11 +98,11 @@ if (isset($_POST["buy-card"])) {
                         $data_type_table_name_arrays = array("nairacard" => "sas_nairacard_status", "dollarcard" => "sas_dollarcard_status", "dd-data" => "sas_dd_data_status");
 
                         //MASTERCARD NAIRACARD
-                        $get_mastercard_nairacard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["nairacard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'"));
+                        $get_mastercard_nairacard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["nairacard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'");
                         $get_api_enabled_nairacard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_mastercard_nairacard_status_details["api_id"] . "' && api_type='nairacard' && status='1' LIMIT 1");
                         if (mysqli_num_rows($get_api_enabled_nairacard_lists) == 1) {
                             $get_api_enabled_nairacard_lists = mysqli_fetch_array($get_api_enabled_nairacard_lists);
-                            $product_table_mastercard_nairacard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1"));
+                            $product_table_mastercard_nairacard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1");
                             if ($product_table_mastercard_nairacard["status"] == 1) {
                                 $product_discount_table_mastercard_nairacard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_nairacard_lists["id"] . "' && product_id='" . $product_table_mastercard_nairacard["id"] . "'");
                                 if (mysqli_num_rows($product_discount_table_mastercard_nairacard) > 0) {
@@ -116,11 +118,11 @@ if (isset($_POST["buy-card"])) {
                         }
 
                         //MASTERCARD DOLLARCARD
-                        $get_mastercard_dollarcard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dollarcard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'"));
+                        $get_mastercard_dollarcard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dollarcard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'");
                         $get_api_enabled_dollarcard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_mastercard_dollarcard_status_details["api_id"] . "' && api_type='dollarcard' && status='1' LIMIT 1");
                         if (mysqli_num_rows($get_api_enabled_dollarcard_lists) == 1) {
                             $get_api_enabled_dollarcard_lists = mysqli_fetch_array($get_api_enabled_dollarcard_lists);
-                            $product_table_mastercard_dollarcard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1"));
+                            $product_table_mastercard_dollarcard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1");
                             if ($product_table_mastercard_dollarcard["status"] == 1) {
                                 $product_discount_table_mastercard_dollarcard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_dollarcard_lists["id"] . "' && product_id='" . $product_table_mastercard_dollarcard["id"] . "'");
                                 if (mysqli_num_rows($product_discount_table_mastercard_dollarcard) > 0) {
@@ -136,11 +138,11 @@ if (isset($_POST["buy-card"])) {
                         }
 
                         //VISA NAIRACARD
-                        $get_visa_nairacard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["nairacard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'"));
+                        $get_visa_nairacard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["nairacard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'");
                         $get_api_enabled_nairacard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_visa_nairacard_status_details["api_id"] . "' && api_type='nairacard' && status='1' LIMIT 1");
                         if (mysqli_num_rows($get_api_enabled_nairacard_lists) == 1) {
                             $get_api_enabled_nairacard_lists = mysqli_fetch_array($get_api_enabled_nairacard_lists);
-                            $product_table_visa_nairacard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1"));
+                            $product_table_visa_nairacard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1");
                             if ($product_table_visa_nairacard["status"] == 1) {
                                 $product_discount_table_visa_nairacard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_nairacard_lists["id"] . "' && product_id='" . $product_table_visa_nairacard["id"] . "'");
                                 if (mysqli_num_rows($product_discount_table_visa_nairacard) > 0) {
@@ -156,11 +158,11 @@ if (isset($_POST["buy-card"])) {
                         }
 
                         //VISA DOLLARCARD
-                        $get_visa_dollarcard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dollarcard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'"));
+                        $get_visa_dollarcard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dollarcard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'");
                         $get_api_enabled_dollarcard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_visa_dollarcard_status_details["api_id"] . "' && api_type='dollarcard' && status='1' LIMIT 1");
                         if (mysqli_num_rows($get_api_enabled_dollarcard_lists) == 1) {
                             $get_api_enabled_dollarcard_lists = mysqli_fetch_array($get_api_enabled_dollarcard_lists);
-                            $product_table_visa_dollarcard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1"));
+                            $product_table_visa_dollarcard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1");
                             if ($product_table_visa_dollarcard["status"] == 1) {
                                 $product_discount_table_visa_dollarcard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_dollarcard_lists["id"] . "' && product_id='" . $product_table_visa_dollarcard["id"] . "'");
                                 if (mysqli_num_rows($product_discount_table_visa_dollarcard) > 0) {
@@ -176,11 +178,11 @@ if (isset($_POST["buy-card"])) {
                         }
 
                         //VERVE NAIRACARD
-                        $get_verve_nairacard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["nairacard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'"));
+                        $get_verve_nairacard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["nairacard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'");
                         $get_api_enabled_nairacard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_verve_nairacard_status_details["api_id"] . "' && api_type='nairacard' && status='1' LIMIT 1");
                         if (mysqli_num_rows($get_api_enabled_nairacard_lists) == 1) {
                             $get_api_enabled_nairacard_lists = mysqli_fetch_array($get_api_enabled_nairacard_lists);
-                            $product_table_verve_nairacard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1"));
+                            $product_table_verve_nairacard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1");
                             if ($product_table_verve_nairacard["status"] == 1) {
                                 $product_discount_table_verve_nairacard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_nairacard_lists["id"] . "' && product_id='" . $product_table_verve_nairacard["id"] . "'");
                                 if (mysqli_num_rows($product_discount_table_verve_nairacard) > 0) {
@@ -196,11 +198,11 @@ if (isset($_POST["buy-card"])) {
                         }
 
                         //VERVE DOLLARCARD
-                        $get_verve_dollarcard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dollarcard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'"));
+                        $get_verve_dollarcard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dollarcard"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'");
                         $get_api_enabled_dollarcard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_verve_dollarcard_status_details["api_id"] . "' && api_type='dollarcard' && status='1' LIMIT 1");
                         if (mysqli_num_rows($get_api_enabled_dollarcard_lists) == 1) {
                             $get_api_enabled_dollarcard_lists = mysqli_fetch_array($get_api_enabled_dollarcard_lists);
-                            $product_table_verve_dollarcard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1"));
+                            $product_table_verve_dollarcard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1");
                             if ($product_table_verve_dollarcard["status"] == 1) {
                                 $product_discount_table_verve_dollarcard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_dollarcard_lists["id"] . "' && product_id='" . $product_table_verve_dollarcard["id"] . "'");
                                 if (mysqli_num_rows($product_discount_table_verve_dollarcard) > 0) {

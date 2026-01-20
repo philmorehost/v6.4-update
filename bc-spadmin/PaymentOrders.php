@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-spadmin-config.php");
     
     if(isset($_GET["order-ref"])){
@@ -10,7 +12,7 @@
     			$select_payment_order = mysqli_query($connection_server, "SELECT * FROM sas_super_admin_submitted_payments WHERE reference='".$reference."'");
     			if(mysqli_num_rows($select_payment_order) == 1){
     				$get_payment_order = mysqli_fetch_array($select_payment_order);
-					$get_vendors_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='".$get_payment_order["vendor_id"]."'"));
+					$get_vendors_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='".$get_payment_order["vendor_id"]."'");
 					if(isset($get_vendors_details["id"])){
 						$verified_vendors_details = $get_vendors_details;
 					}else{
@@ -167,7 +169,7 @@
                     <?php
                     if(mysqli_num_rows($get_user_pending_transaction_details) >= 1){
                     	while($user_transaction = mysqli_fetch_assoc($get_user_pending_transaction_details)){
-							$get_vendors_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='".$user_transaction["vendor_id"]."'"));
+							$get_vendors_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='".$user_transaction["vendor_id"]."'");
 							if(isset($get_vendors_details["id"])){
 								$verified_vendors_details = $get_vendors_details;
 							}else{
@@ -203,7 +205,7 @@
                     <?php
                     if(mysqli_num_rows($get_user_successful_transaction_details) >= 1){
                     	while($user_transaction = mysqli_fetch_assoc($get_user_successful_transaction_details)){
-                    		$get_vendors_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='".$user_transaction["vendor_id"]."'"));
+				$get_vendors_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='".$user_transaction["vendor_id"]."'");
 							if(isset($get_vendors_details["id"])){
 								$verified_vendors_details = $get_vendors_details;
 							}else{
@@ -237,7 +239,7 @@
                     <?php
                     if(mysqli_num_rows($get_user_failed_transaction_details) >= 1){
                     	while($user_transaction = mysqli_fetch_assoc($get_user_failed_transaction_details)){
-							$get_vendors_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='".$user_transaction["vendor_id"]."'"));
+							$get_vendors_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='".$user_transaction["vendor_id"]."'");
 							if(isset($get_vendors_details["id"])){
 								$verified_vendors_details = $get_vendors_details;
 							}else{

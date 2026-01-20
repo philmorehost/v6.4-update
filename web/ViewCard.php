@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 include("../func/bc-config.php");
 
 if (isset($_GET["ref"])) {
@@ -84,7 +86,7 @@ if (isset($_GET["ref"])) {
 					$card_qty = strtoupper($all_exploded_name[1]);
 					$card_type = $card_details["card_type"];
 					$date_puchased = formDate($card_details["date"]);
-					$get_dial_code = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_cards WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && card_name='" . $card_details["card_name"] . "' LIMIT 1"));
+					$get_dial_code = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_cards WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && card_name='" . $card_details["card_name"] . "' LIMIT 1");
 					$explode_dialcode = array_filter(explode(",", trim($get_dial_code["dial_code"])));
 					$dial_code = $explode_dialcode[0];
 					$dial_code_2 = $explode_dialcode[1];

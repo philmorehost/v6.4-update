@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-config.php");
         
     if(isset($_POST["buy-exam"])){
@@ -84,11 +86,11 @@
 							$exam_type_table_name_arrays = array("waec"=>"sas_exam_status", "neco"=>"sas_exam_status", "nabteb"=>"sas_exam_status", "jamb"=>"sas_exam_status");
 							
 							//Waec
-                            $get_waec_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$exam_type_table_name_arrays[$product_name_array[0]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."'"));
+                            $get_waec_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$exam_type_table_name_arrays[$product_name_array[0]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."'");
                             $get_api_enabled_waec_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_waec_status_details["api_id"]."' && api_type='exam' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_waec_lists) == 1){
                             	$get_api_enabled_waec_lists = mysqli_fetch_array($get_api_enabled_waec_lists);
-                                $product_table_waec_exam = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."' LIMIT 1"));
+                                $product_table_waec_exam = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."' LIMIT 1");
                                 if($product_table_waec_exam["status"] == 1){
                                 	$product_discount_table_waec_exam = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_waec_lists["id"]."' && product_id='".$product_table_waec_exam["id"]."'");
                                 	if(mysqli_num_rows($product_discount_table_waec_exam) > 0){
@@ -102,11 +104,11 @@
                             }
 
                             //Neco
-                            $get_neco_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$exam_type_table_name_arrays[$product_name_array[1]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."'"));
+                            $get_neco_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$exam_type_table_name_arrays[$product_name_array[1]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."'");
                             $get_api_enabled_neco_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_neco_status_details["api_id"]."' && api_type='exam' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_neco_lists) == 1){
                                 $get_api_enabled_neco_lists = mysqli_fetch_array($get_api_enabled_neco_lists);
-                                $product_table_neco_exam = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."' LIMIT 1"));
+                                $product_table_neco_exam = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."' LIMIT 1");
                                 if($product_table_neco_exam["status"] == 1){
                                 	$product_discount_table_neco_exam = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_neco_lists["id"]."' && product_id='".$product_table_neco_exam["id"]."'");
                                 	if(mysqli_num_rows($product_discount_table_neco_exam) > 0){
@@ -120,11 +122,11 @@
                             }
 
                             //Nabteb
-                            $get_nabteb_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$exam_type_table_name_arrays[$product_name_array[2]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."'"));
+                            $get_nabteb_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$exam_type_table_name_arrays[$product_name_array[2]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."'");
                             $get_api_enabled_nabteb_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_nabteb_status_details["api_id"]."' && api_type='exam' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_nabteb_lists) == 1){
                                 $get_api_enabled_nabteb_lists = mysqli_fetch_array($get_api_enabled_nabteb_lists);
-                                $product_table_nabteb_exam = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."' LIMIT 1"));
+                                $product_table_nabteb_exam = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."' LIMIT 1");
                                 if($product_table_nabteb_exam["status"] == 1){
                                 	$product_discount_table_nabteb_exam = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_nabteb_lists["id"]."' && product_id='".$product_table_nabteb_exam["id"]."'");
                                 	if(mysqli_num_rows($product_discount_table_nabteb_exam) > 0){
@@ -138,11 +140,11 @@
                             }
 							
 							//Jamb
-							$get_jamb_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$exam_type_table_name_arrays[$product_name_array[3]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."'"));
+							$get_jamb_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$exam_type_table_name_arrays[$product_name_array[3]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."'");
 							$get_api_enabled_jamb_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_jamb_status_details["api_id"]."' && api_type='exam' && status='1' LIMIT 1");
 							if(mysqli_num_rows($get_api_enabled_jamb_lists) == 1){
 								$get_api_enabled_jamb_lists = mysqli_fetch_array($get_api_enabled_jamb_lists);
-								$product_table_jamb_exam = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."' LIMIT 1"));
+								$product_table_jamb_exam = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."' LIMIT 1");
 								if($product_table_jamb_exam["status"] == 1){
 									$product_discount_table_jamb_exam = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_jamb_lists["id"]."' && product_id='".$product_table_jamb_exam["id"]."'");
 									if(mysqli_num_rows($product_discount_table_jamb_exam) > 0){

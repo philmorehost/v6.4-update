@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 	if(!isset($_SESSION["user"])){
 		header("Location: /login.php");
 	}else{
@@ -21,7 +23,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><?php echo mysqli_fetch_array(mysqli_query($conn_server_db,"SELECT * FROM site_info WHERE 1"))["sitetitle"]; ?></title>
+<title><?php echo mysqli_query_and_fetch_array($conn_server_db,"SELECT * FROM site_info WHERE 1")["sitetitle"]; ?></title>
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; " />
 <meta name="theme-color" content="skyblue" />

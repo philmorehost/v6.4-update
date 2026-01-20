@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-admin-config.php");
     
     if(isset($_GET["account-status"])){
@@ -8,7 +10,7 @@
         if(is_numeric($status)){
             if(in_array($status, $statusArray)){
             	$send_mail_to_user = false;
-            	$get_user_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && username='$account_user' LIMIT 1"));
+		$get_user_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && username='$account_user' LIMIT 1");
             	
                 if($status == 1){
                     $alter_user_account_details = alterUser($account_user, "status", $status);
@@ -82,7 +84,7 @@
         if(is_numeric($status)){
             if(in_array($status, $statusArray)){
             	$send_mail_to_user = false;
-            	$get_user_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && username='$account_user' LIMIT 1"));
+		$get_user_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && username='$account_user' LIMIT 1");
             	
                 if($status == 1){
                     $alter_user_account_details = alterUser($account_user, "api_status", $status);
@@ -276,7 +278,7 @@
                             $user_level_with_upgrade_link = accountLevel($user_details["account_level"]).' <span onclick="customJsRedirect(`/bc-admin/UserUpgrade.php?userID='.$user_details["id"].'`, `Are you sure you want to Upgrade '.strtoupper($user_details["username"]).' account`);" style="text-decoration: underline; color: green;" class=""><i title="Upgrade Account" style="" class="bi bi-arrow-down-up" ></i></span>';
                             
                             if(!empty($user_details["referral_id"]) && is_numeric($user_details["referral_id"])){
-                                $get_user_referral_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_details["referral_id"]."'"));
+                                $get_user_referral_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_details["referral_id"]."'");
                             }else{
                                 $get_user_referral_details = array("username" => "Not Referred");
                             }
@@ -328,7 +330,7 @@
                             $user_level_with_upgrade_link = accountLevel($user_details["account_level"]).' <span onclick="customJsRedirect(`/bc-admin/UserUpgrade.php?userID='.$user_details["id"].'`, `Are you sure you want to Upgrade '.strtoupper($user_details["username"]).' account`);" style="text-decoration: underline; color: green;" class=""><i title="Upgrade Account" style="" class="bi bi-arrow-down-up" ></i></span>';
                             
                             if(!empty($user_details["referral_id"]) && is_numeric($user_details["referral_id"])){
-                                $get_user_referral_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_details["referral_id"]."'"));
+                                $get_user_referral_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_details["referral_id"]."'");
                             }else{
                                 $get_user_referral_details = array("username" => "Not Referred");
                             }
@@ -378,7 +380,7 @@
                             $user_level_with_upgrade_link = accountLevel($user_details["account_level"]).' <span onclick="customJsRedirect(`/bc-admin/UserUpgrade.php?userID='.$user_details["id"].'`, `Are you sure you want to Upgrade '.strtoupper($user_details["username"]).' account`);" style="text-decoration: underline; color: green;" class=""><i title="Upgrade Account" style="" class="bi bi-arrow-down-up" ></i></span>';
                             
                             if(!empty($user_details["referral_id"]) && is_numeric($user_details["referral_id"])){
-                                $get_user_referral_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_details["referral_id"]."'"));
+                                $get_user_referral_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_details["referral_id"]."'");
                             }else{
                                 $get_user_referral_details = array("username" => "Not Referred");
                             }

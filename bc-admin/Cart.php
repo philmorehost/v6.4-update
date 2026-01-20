@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-admin-config.php");
     
 	if(isset($_SESSION["spadmin_vendor_auth"]) && ($_SESSION["spadmin_vendor_auth"] == true)){
@@ -24,7 +26,7 @@
 				$api_type_cart_name_website = "";
 				foreach($exp_cart_items as $item_id){
 					if(is_numeric($item_id) && ($item_id > 0)){
-						$get_active_cart_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_api_marketplace_listings WHERE id='".$item_id."' && $status_statement"));
+						$get_active_cart_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_api_marketplace_listings WHERE id='".$item_id."' && $status_statement");
 						
 						if(isset($get_active_cart_details["api_type"])){
 							$api_website = str_replace(["//www.","/","http:","https:"],"",$get_active_cart_details["api_website"]);
@@ -203,7 +205,7 @@
 					$count_new_cart_items_amount = 0;
 					foreach($exp_cart_items as $item_id){
 						if(is_numeric($item_id) && ($item_id > 0)){
-							$get_active_cart_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_api_marketplace_listings WHERE id='".$item_id."' && $status_statement"));
+							$get_active_cart_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_api_marketplace_listings WHERE id='".$item_id."' && $status_statement");
 							
 							if(isset($get_active_cart_details["api_type"])){
 								$api_website = str_replace(["//www.","/","http:","https:"],"",$get_active_cart_details["api_website"]);

@@ -1,5 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="<?php echo $web_http_host; ?>/js/sweetalert2.all.min.js"></script>
+<script src="<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); echo $web_http_host; ?>/js/sweetalert2.all.min.js"></script>
 <script src="<?php echo $web_http_host; ?>/js/js-loading-overlay.min.js"></script>
 
 <?php if (isset($_SESSION["product_purchase_response"])) { ?>

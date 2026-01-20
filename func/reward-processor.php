@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 include_once("daily-bonus.php");
 
 function process_post_purchase_rewards($user_id, $amount, $tid) {

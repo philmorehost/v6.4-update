@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-spadmin-config.php");
     
     if(isset($_GET["account-status"])){
@@ -9,7 +11,7 @@
         if(is_numeric($status)){
             if(in_array($status, $statusArray)){
             	$send_mail_to_admin = false;
-            	$get_admin_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='$account_id' LIMIT 1"));
+		$get_admin_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='$account_id' LIMIT 1");
             	
                 if($status == 1){
                     $alter_user_account_details = alterVendor($account_id, "status", $status);

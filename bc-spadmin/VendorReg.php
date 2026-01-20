@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     // Use basic configs to avoid login enforcement
     include("../func/bc-connect.php");
 	include("../func/bc-func.php");
@@ -63,7 +65,7 @@
                             $pending_id = mysqli_insert_id($connection_server);
 
                             // Send admin notification email
-                            $get_super_admin = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin LIMIT 1"));
+                            $get_super_admin = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin LIMIT 1");
                             if($get_super_admin) {
                                 $admin_email = $get_super_admin['email'];
                                 $email_placeholders = array(

@@ -1,4 +1,6 @@
-<?php session_start([
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start([
     'cookie_lifetime' => 286400,
 	'gc_maxlifetime' => 286400,
 ]);
@@ -104,8 +106,8 @@
                         if(mysqli_num_rows($get_user_transaction_details) >= 1){
                             while($user_transaction = mysqli_fetch_assoc($get_user_transaction_details)){
                                 if(!empty($user_transaction["api_id"]) && !empty($user_transaction["product_id"])){
-                                    $get_admin_product_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_transaction["product_id"]."' LIMIT 1"));
-                                    $get_admin_api_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_transaction["api_id"]."' LIMIT 1"));
+                                    $get_admin_product_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_transaction["product_id"]."' LIMIT 1");
+                                    $get_admin_api_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_admin_details["id"]."' && id='".$user_transaction["api_id"]."' LIMIT 1");
                                     $transaction_type = ucwords($get_admin_product_details["product_name"]." ".str_replace(["-","_"], " ", $get_admin_api_details["api_type"]));
                                 }else{
                                     $transaction_type = ucwords($user_transaction["type_alternative"]);

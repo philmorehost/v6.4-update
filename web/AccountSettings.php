@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-config.php");
         
     if(isset($_POST["update-profile"])){
@@ -173,7 +175,7 @@
                                     $user_monnify_account_reference = md5($_SERVER["HTTP_HOST"]."-".$get_logged_user_details["vendor_id"]."-".$get_logged_user_details["username"]);
                                     $get_monnify_reserve_account = json_decode(makeMonnifyRequest("get", $get_monnify_access_token["token"], "api/v2/bank-transfer/reserved-accounts/".$user_monnify_account_reference, ""), true);
                                     if($get_monnify_reserve_account["status"] == "failed"){
-                                        $select_monnify_gateway_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && gateway_name='monnify' LIMIT 1"));
+                                        $select_monnify_gateway_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && gateway_name='monnify' LIMIT 1");
                                         $monnify_create_reserve_account_array = array("accountReference" => $user_monnify_account_reference, "accountName" => $get_logged_user_details["firstname"]." ".$get_logged_user_details["lastname"]." ".$get_logged_user_details["othername"], "currencyCode" => "NGN", "contractCode" => $select_monnify_gateway_details["encrypt_key"], "customerEmail" => $get_logged_user_details["email"], $bvn_nin_monnify_account_creation, "getAllAvailableBanks" => false, "preferredBanks" => ["232", "035", "50515", "058"]);
                                         makeMonnifyRequest("post", $get_monnify_access_token["token"], "api/v2/bank-transfer/reserved-accounts", $monnify_create_reserve_account_array);
                                         

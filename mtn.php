@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
   $curl_url = "https://api.mtn.com/v1/oauth/access_token?grant_type=client_credentials";
 	$curl_request = curl_init($curl_url);
 	curl_setopt($curl_request, CURLOPT_POST, true);

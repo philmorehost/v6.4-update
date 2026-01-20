@@ -1,10 +1,12 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     //header("Content-Type", "application/json");
     include_once("func/bc-connect.php");
     include_once("func/bc-func.php");
 
     //Select Vendor Table
-	$select_vendor_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1"));
+	$select_vendor_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1");
 	if(($select_vendor_table == true) && ($select_vendor_table["website_url"] == $_SERVER["HTTP_HOST"]) && ($select_vendor_table["status"] == 1)){
         $get_api_post_info = json_decode(file_get_contents('php://input'),true);
         $post_username = mysqli_real_escape_string($connection_server, trim(strip_tags($get_api_post_info["user"])));
@@ -13,7 +15,7 @@
         }else{
         	$post_request_sender = "";
         }
-        $get_vendor_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1"));
+        $get_vendor_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1");
         $get_user_detail_via_username = mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='".$get_vendor_details["id"]."' && username='".$post_username."' LIMIT 1");
         $get_logged_user_details = mysqli_fetch_array($get_user_detail_via_username);
         if(mysqli_num_rows($get_user_detail_via_username) == 1){

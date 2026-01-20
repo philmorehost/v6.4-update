@@ -34,7 +34,7 @@ if (($select_vendor_table == true) && ($select_vendor_table["website_url"] == $_
 			}
 		}
 
-		if ($get_logged_user_details["api_status"] == 2) {
+		if ($get_logged_user_details["api_status"] == 2 && !isset($_SESSION["user_session"])) {
 			//API approval needed, Contact Admin
 			$json_response_array = array("status" => "failed", "desc" => "API approval needed, Contact Admin");
 			$api_json_response_encode = json_encode($json_response_array, true);

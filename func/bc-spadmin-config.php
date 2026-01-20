@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 	if(isset($_SERVER["HTTPS"]) && ($_SERVER["HTTPS"] == "on")){
 		$web_http_host = "https://".$_SERVER["HTTP_HOST"];
 	}else{

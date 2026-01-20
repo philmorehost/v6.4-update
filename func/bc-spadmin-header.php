@@ -4,7 +4,9 @@
 
   <div class="d-flex align-items-center justify-content-between">
       <a href="#" class="logo d-flex align-items-center">
-        <span class="d-none d-lg-block"><img src="<?php echo $web_http_host; ?>/uploaded-image/<?php echo str_replace(['.',':'],'-',$_SERVER['HTTP_HOST']).'_'; ?>logo.png" alt=""></span>
+        <span class="d-none d-lg-block"><img src="<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); echo $web_http_host; ?>/uploaded-image/<?php echo str_replace(['.',':'],'-',$_SERVER['HTTP_HOST']).'_'; ?>logo.png" alt=""></span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
 </div>

@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 $purchase_method = strtoupper($purchase_method ?? "");
 $json_response_encode = json_encode(array("status" => "failed", "desc" => "Unknown error occurred during processing."));
 $purchase_method_array = array("API", "WEB", "APP");
@@ -37,7 +39,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
                 if (userBalance(1) >= $amount && !empty($amount) && is_numeric($amount) && !empty($epp)) {
 
                     $betting_type_table_name_arrays = array("msport" => "sas_betting_status", "naijabet" => "sas_betting_status", "nairabet" => "sas_betting_status", "bet9ja-agent" => "sas_betting_status", "betland" => "sas_betting_status", "betlion" => "sas_betting_status", "supabet" => "sas_betting_status", "bet9ja" => "sas_betting_status", "bangbet" => "sas_betting_status", "betking" => "sas_betting_status", "1xbet" => "sas_betting_status", "betway" => "sas_betting_status", "merrybet" => "sas_betting_status", "mlotto" => "sas_betting_status", "western-lotto" => "sas_betting_status", "hallabet" => "sas_betting_status", "green-lotto" => "sas_betting_status");
-                    $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $betting_type_table_name_arrays[$epp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$epp'"));
+                    $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $betting_type_table_name_arrays[$epp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$epp'");
                     $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='betting'");
                     $get_api_enabled_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='betting' && status='1'");
 
@@ -51,9 +53,9 @@ if (in_array($purchase_method, $purchase_method_array)) {
                                             $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                                             $betting_type_table_name = $betting_type_table_name_arrays[$epp];
                                             $product_name = strtolower($epp);
-                                            $product_status_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $betting_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                            $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                            $product_discount_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' LIMIT 1"));
+                                            $product_status_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $betting_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                            $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                            $product_discount_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' LIMIT 1");
                                             $discounted_amount = ($amount - ($amount * ($product_discount_table["val_1"] / 100)));
                                         }
                                         if (is_numeric($product_discount_table["val_1"])) {
@@ -205,7 +207,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
         if ($action_function == 3) {
             if (!empty($customer_id) && is_numeric($customer_id) && !empty($epp)) {
                 $betting_type_table_name_arrays = array("msport" => "sas_betting_status", "naijabet" => "sas_betting_status", "nairabet" => "sas_betting_status", "bet9ja-agent" => "sas_betting_status", "betland" => "sas_betting_status", "betlion" => "sas_betting_status", "supabet" => "sas_betting_status", "bet9ja" => "sas_betting_status", "bangbet" => "sas_betting_status", "betking" => "sas_betting_status", "1xbet" => "sas_betting_status", "betway" => "sas_betting_status", "merrybet" => "sas_betting_status", "mlotto" => "sas_betting_status", "western-lotto" => "sas_betting_status", "hallabet" => "sas_betting_status", "green-lotto" => "sas_betting_status");
-                $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $betting_type_table_name_arrays[$epp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$epp'"));
+                $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $betting_type_table_name_arrays[$epp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$epp'");
                 $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='betting'");
                 $get_api_enabled_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='betting' && status='1'");
 
@@ -218,8 +220,8 @@ if (in_array($purchase_method, $purchase_method_array)) {
                                     if ($account_level_table_name_arrays[$get_logged_user_details["account_level"]] == true) {
                                         $betting_type_table_name = $betting_type_table_name_arrays[$epp];
                                         $product_name = strtolower($epp);
-                                        $product_status_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $betting_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                        $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
+                                        $product_status_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $betting_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                        $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
                                     }
                                     if (($product_table["status"] == 1) && ($product_status_table["status"] == 1)) {
                                         $api_gateway_name_file_exists = "betting-" . str_replace(".", "-", $api_detail["api_base_url"]) . ".php";

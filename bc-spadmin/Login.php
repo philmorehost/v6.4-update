@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 	
     include("../func/bc-spadmin-config.php");
     if(isset($get_logged_spadmin_details["email"]) && !empty($get_logged_spadmin_details["email"]) && ($get_logged_spadmin_details["status"] == 1)){

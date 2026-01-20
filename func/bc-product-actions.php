@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 function handle_product_actions($connection_server, $get_logged_admin_details) {
     if (isset($_POST["enable-product"]) || isset($_POST["disable-product"]) || isset($_POST["delete-product"])) {
         $product_name = mysqli_real_escape_string($connection_server, trim(strip_tags(strtolower($_POST["product-name"]))));

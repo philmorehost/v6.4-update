@@ -1,10 +1,12 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-admin-config.php");
     
     if(isset($_POST["send-code"])){
     	$email = mysqli_real_escape_string($connection_server, trim(strip_tags(strtolower($_POST["email"]))));
     	if(!empty($email)){
-    		$get_vendor_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."'"));
+		$get_vendor_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."'");
     		$get_user_details = mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='".$get_vendor_details["id"]."' && email='$email'");
     		if(mysqli_num_rows($get_user_details) == 1){
     			$get_user_personal_details = mysqli_fetch_array($get_user_details);
@@ -52,7 +54,7 @@
     	$confirm_pass = mysqli_real_escape_string($connection_server, trim(strip_tags($_POST["confirm-pass"])));
 		$recovery_code = mysqli_real_escape_string($connection_server, trim(strip_tags(strtolower($_POST["code"]))));
     	if(!empty($pass) && !empty($confirm_pass) && !empty($recovery_code) && is_numeric($recovery_code) && (strlen($recovery_code) == "6")){
-    		$get_vendor_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."'"));
+		$get_vendor_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."'");
     		$get_user_details = mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='".$get_vendor_details["id"]."' && email='".$_SESSION["admin-recovery-username"]."'");
     		if(mysqli_num_rows($get_user_details) == 1){
 				if($_SESSION["admin-recovery-code"] == $recovery_code){

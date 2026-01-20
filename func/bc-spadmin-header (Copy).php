@@ -1,6 +1,8 @@
 	<div style="height: 70px;" class="color-2 bg-2 m-z-index-5 s-z-index-5 m-position-fix s-position-fix m-top-0 s-top-0 m-flex-column-dp s-flex-row-dp m-width-100 s-width-100 m-padding-tp-2 s-padding-tp-1 m-padding-bm-1 s-padding-bm-1">
         <div class="bg-3 m-position-rel s-position-rel m-inline-block-dp s-inline-block-dp m-width-100 s-width-14 m-height-100 s-height-90" >
-        	<img alt="Menu" onclick="toggleSlider();" id="toggleSlider" src="<?php echo $web_http_host; ?>/asset/open-black.png" style="user-select: auto; object-fit: contain; object-position: center;" class="a-cursor m-position-rel s-position-abs m-inline-block-dp s-inline-block-dp m-width-6 s-width-0 m-height-100 s-height-0 m-top-5 s-top-2 m-margin-tp-0 s-margin-tp-0 m-margin-lt-7 s-margin-lt-0"/>
+		<img alt="Menu" onclick="toggleSlider();" id="toggleSlider" src="<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); echo $web_http_host; ?>/asset/open-black.png" style="user-select: auto; object-fit: contain; object-position: center;" class="a-cursor m-position-rel s-position-abs m-inline-block-dp s-inline-block-dp m-width-6 s-width-0 m-height-100 s-height-0 m-top-5 s-top-2 m-margin-tp-0 s-margin-tp-0 m-margin-lt-7 s-margin-lt-0"/>
         	<img alt="Logo" src="<?php echo $web_http_host; ?>/uploaded-image/sp-logo.png" style="user-select: auto; object-fit: contain; object-position: left;" class="m-position-rel s-position-abs m-inline-block-dp s-inline-block-dp m-width-80 s-width-95 m-height-100 s-height-100 m-margin-tp-0 s-margin-tp-5 m-margin-lt-1 s-margin-lt-5"/>
  
         </div>

@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-config.php");
         
     if(isset($_POST["set-answer"])){
@@ -172,7 +174,7 @@
                 <?php } ?>
 
                 <?php if(!empty(trim($get_logged_user_details["security_quest"])) && !empty(trim($get_logged_user_details["security_answer"])) && (strlen($get_logged_user_details["security_answer"]) >= 3) && (strlen($get_logged_user_details["security_answer"]) <= 20)){
-                    $get_security_quest = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_security_quests WHERE id='".$get_logged_user_details["security_quest"]."'"))
+                    $get_security_quest = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_security_quests WHERE id='".$get_logged_user_details["security_quest"]."'")
                 ?>
                 <span style="user-select: auto;" class="h5 fw-light"><?php echo $get_security_quest["quest"]; ?></span><br>
                 <form method="post" action="">

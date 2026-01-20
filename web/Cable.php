@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-config.php");
         
     if(isset($_POST["buy-cable"])){
@@ -116,11 +118,11 @@
 							$cable_type_table_name_arrays = array("startimes"=>"sas_cable_status", "dstv"=>"sas_cable_status", "gotv"=>"sas_cable_status", "showmax"=>"sas_cable_status");
 							
 							//Startimes
-                            $get_startimes_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$cable_type_table_name_arrays[$product_name_array[0]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."'"));
+                            $get_startimes_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$cable_type_table_name_arrays[$product_name_array[0]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."'");
                             $get_api_enabled_startimes_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_startimes_status_details["api_id"]."' && api_type='cable' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_startimes_lists) == 1){
                                 $get_api_enabled_startimes_lists = mysqli_fetch_array($get_api_enabled_startimes_lists);
-                                $product_table_startimes_cable = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."' LIMIT 1"));
+                                $product_table_startimes_cable = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."' LIMIT 1");
                                 if($product_table_startimes_cable["status"] == 1){
                                 	$product_discount_table_startimes_cable = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_startimes_lists["id"]."' && product_id='".$product_table_startimes_cable["id"]."'");
                                 	if(mysqli_num_rows($product_discount_table_startimes_cable) > 0){
@@ -134,11 +136,11 @@
                             }
 
                             //Dstv
-                            $get_dstv_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$cable_type_table_name_arrays[$product_name_array[1]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."'"));
+                            $get_dstv_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$cable_type_table_name_arrays[$product_name_array[1]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."'");
                             $get_api_enabled_dstv_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_dstv_status_details["api_id"]."' && api_type='cable' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_dstv_lists) == 1){
                                 $get_api_enabled_dstv_lists = mysqli_fetch_array($get_api_enabled_dstv_lists);
-                                $product_table_dstv_cable = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."' LIMIT 1"));
+                                $product_table_dstv_cable = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."' LIMIT 1");
                                 if($product_table_dstv_cable["status"] == 1){
                                 	$product_discount_table_dstv_cable = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_dstv_lists["id"]."' && product_id='".$product_table_dstv_cable["id"]."'");
                                 	if(mysqli_num_rows($product_discount_table_dstv_cable) > 0){
@@ -152,11 +154,11 @@
                             }
 
                             //Gotv
-                            $get_gotv_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$cable_type_table_name_arrays[$product_name_array[2]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."'"));
+                            $get_gotv_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$cable_type_table_name_arrays[$product_name_array[2]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."'");
                             $get_api_enabled_gotv_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_gotv_status_details["api_id"]."' && api_type='cable' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_gotv_lists) == 1){
                                 $get_api_enabled_gotv_lists = mysqli_fetch_array($get_api_enabled_gotv_lists);
-                                $product_table_gotv_cable = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."' LIMIT 1"));
+                                $product_table_gotv_cable = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."' LIMIT 1");
                                 if($product_table_gotv_cable["status"] == 1){
                                 	$product_discount_table_gotv_cable = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_gotv_lists["id"]."' && product_id='".$product_table_gotv_cable["id"]."'");
                                 	if(mysqli_num_rows($product_discount_table_gotv_cable) > 0){
@@ -170,11 +172,11 @@
                             }
 
                             //Showmax
-                            $get_showmax_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$cable_type_table_name_arrays[$product_name_array[3]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."'"));
+                            $get_showmax_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$cable_type_table_name_arrays[$product_name_array[3]]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."'");
                             $get_api_enabled_showmax_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_showmax_status_details["api_id"]."' && api_type='cable' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_showmax_lists) == 1){
                                 $get_api_enabled_showmax_lists = mysqli_fetch_array($get_api_enabled_showmax_lists);
-                                $product_table_showmax_cable = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."' LIMIT 1"));
+                                $product_table_showmax_cable = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."' LIMIT 1");
                                 if($product_table_showmax_cable["status"] == 1){
                                 	$product_discount_table_showmax_cable = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_showmax_lists["id"]."' && product_id='".$product_table_showmax_cable["id"]."'");
                                 	if(mysqli_num_rows($product_discount_table_showmax_cable) > 0){

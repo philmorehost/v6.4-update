@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
 $purchase_method = strtoupper($purchase_method ?? "");
 $purchase_method_array = array("API", "WEB", "APP");
@@ -117,7 +119,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
                     $get_customer_holder_detail = mysqli_fetch_array($select_customer_holder);
 
                     $crypto_type_table_name_arrays = array("ngn" => "sas_crypto_status", "usd" => "sas_crypto_status", "gbp" => "sas_crypto_status", "cad" => "sas_crypto_status", "eur" => "sas_crypto_status", "btc" => "sas_crypto_status", "eth" => "sas_crypto_status", "doge" => "sas_crypto_status", "usdt" => "sas_crypto_status", "usdc" => "sas_crypto_status", "sol" => "sas_crypto_status", "ada" => "sas_crypto_status", "trx" => "sas_crypto_status");
-                    $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$currency'"));
+                    $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$currency'");
                     $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='crypto'");
                     $get_api_enabled_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='crypto' && status='1'");
 
@@ -131,9 +133,9 @@ if (in_array($purchase_method, $purchase_method_array)) {
                                             $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                                             $crypto_type_table_name = $crypto_type_table_name_arrays[$currency];
                                             $product_name = strtolower($currency);
-                                            $product_status_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $crypto_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                            $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                            $product_discount_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' LIMIT 1"));
+                                            $product_status_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $crypto_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                            $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                            $product_discount_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' LIMIT 1");
                                         }
                                         if (($product_table["status"] == 1) && ($product_status_table["status"] == 1)) {
                                             $api_gateway_name_file_exists = "crypto-wallet-" . str_replace(".", "-", $api_detail["api_base_url"]) . ".php";
@@ -244,7 +246,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
 
                             // Get API Details for fallback
                             $crypto_type_table_name_arrays = array("ngn" => "sas_crypto_status", "usd" => "sas_crypto_status", "gbp" => "sas_crypto_status", "cad" => "sas_crypto_status", "eur" => "sas_crypto_status", "btc" => "sas_crypto_status", "eth" => "sas_crypto_status", "doge" => "sas_crypto_status", "usdt" => "sas_crypto_status", "usdc" => "sas_crypto_status", "sol" => "sas_crypto_status", "ada" => "sas_crypto_status", "trx" => "sas_crypto_status");
-                            $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$currency'"));
+                            $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$currency'");
 
                             // Re-initialize $api_detail to avoid pollution from previous iterations
                             $api_detail = null;
@@ -293,7 +295,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
                 if ($account_level_table_name_arrays[$get_logged_user_details["account_level"]] == true) {
                     $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                     $product_name = strtolower($currency);
-                    $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
+                    $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
                     $product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_id='" . $product_table["id"] . "'");
                 }
 
@@ -319,13 +321,13 @@ if (in_array($purchase_method, $purchase_method_array)) {
                 if ($account_level_table_name_arrays[$get_logged_user_details["account_level"]] == true) {
                     $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                     $product_name = strtolower($currency);
-                    $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
+                    $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
                     $product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_id='" . $product_table["id"] . "' && val_1 = '" . $chain . "'");
                 }
 
                 if (mysqli_num_rows($product_discount_table) == 1) {
                     $crypto_type_table_name_arrays = array("ngn" => "sas_crypto_status", "usd" => "sas_crypto_status", "gbp" => "sas_crypto_status", "cad" => "sas_crypto_status", "eur" => "sas_crypto_status", "btc" => "sas_crypto_status", "eth" => "sas_crypto_status", "doge" => "sas_crypto_status", "usdt" => "sas_crypto_status", "usdc" => "sas_crypto_status", "sol" => "sas_crypto_status", "ada" => "sas_crypto_status", "trx" => "sas_crypto_status");
-                    $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$currency'"));
+                    $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$currency'");
 
                     $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='crypto'");
                     if (mysqli_num_rows($get_api_lists) > 0) {
@@ -449,14 +451,14 @@ if (in_array($purchase_method, $purchase_method_array)) {
                         if ($account_level_table_name_arrays[$get_logged_user_details["account_level"]] == true) {
                             $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                             $product_name = strtolower($currency);
-                            $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
+                            $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
                             $product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_id='" . $product_table["id"] . "' && val_1 = '" . $get_beneficiary_info["crypto_chain"] . "'");
                         }
 
                         if (mysqli_num_rows($product_discount_table) == 1) {
                             $get_product_discount_details = mysqli_fetch_array($product_discount_table);
                             $crypto_type_table_name_arrays = array("ngn" => "sas_crypto_status", "usd" => "sas_crypto_status", "gbp" => "sas_crypto_status", "cad" => "sas_crypto_status", "eur" => "sas_crypto_status", "btc" => "sas_crypto_status", "eth" => "sas_crypto_status", "doge" => "sas_crypto_status", "usdt" => "sas_crypto_status", "usdc" => "sas_crypto_status", "sol" => "sas_crypto_status", "ada" => "sas_crypto_status", "trx" => "sas_crypto_status");
-                            $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$currency'"));
+                            $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$currency'");
 
                             $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='crypto'");
                             if (mysqli_num_rows($get_api_lists) > 0) {
@@ -562,14 +564,14 @@ if (in_array($purchase_method, $purchase_method_array)) {
                     if ($account_level_table_name_arrays[$get_logged_user_details["account_level"]] == true) {
                         $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                         $product_name = strtolower($source_currency);
-                        $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
+                        $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
                         $product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_id='" . $product_table["id"] . "' && val_1 = '1'");
                     }
 
                     if (mysqli_num_rows($product_discount_table) == 1) {
                         $get_product_discount_details = mysqli_fetch_array($product_discount_table);
                         $crypto_type_table_name_arrays = array("ngn" => "sas_crypto_status", "usd" => "sas_crypto_status", "gbp" => "sas_crypto_status", "cad" => "sas_crypto_status", "eur" => "sas_crypto_status", "btc" => "sas_crypto_status", "eth" => "sas_crypto_status", "doge" => "sas_crypto_status", "usdt" => "sas_crypto_status", "usdc" => "sas_crypto_status", "sol" => "sas_crypto_status", "ada" => "sas_crypto_status", "trx" => "sas_crypto_status");
-                        $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$source_currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$source_currency'"));
+                        $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$source_currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$source_currency'");
 
                         $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='crypto'");
                         if (mysqli_num_rows($get_api_lists) > 0) {
@@ -695,7 +697,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
                         if ($account_level_table_name_arrays[$get_logged_user_details["account_level"]] == true) {
                             $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                             $product_name = strtolower($source_currency);
-                            $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
+                            $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
                             $product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_id='" . $product_table["id"] . "' && val_1 = '1'");
                         }
 
@@ -703,7 +705,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
                             $get_product_discount_details = mysqli_fetch_array($product_discount_table);
                             $crypto_permanent_wallet_arrays = array("usdt", "usdc");
                             $crypto_type_table_name_arrays = array("ngn" => "sas_crypto_status", "usd" => "sas_crypto_status", "gbp" => "sas_crypto_status", "cad" => "sas_crypto_status", "eur" => "sas_crypto_status", "btc" => "sas_crypto_status", "eth" => "sas_crypto_status", "doge" => "sas_crypto_status", "usdt" => "sas_crypto_status", "usdc" => "sas_crypto_status", "sol" => "sas_crypto_status", "ada" => "sas_crypto_status", "trx" => "sas_crypto_status");
-                            $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$source_currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$source_currency'"));
+                            $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $crypto_type_table_name_arrays[$source_currency] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$source_currency'");
 
                             $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='crypto'");
                             if (mysqli_num_rows($get_api_lists) > 0) {
@@ -839,7 +841,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
                 if ($account_level_table_name_arrays[$get_logged_user_details["account_level"]] == true) {
                     $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                     $product_name = strtolower($currency);
-                    $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
+                    $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
                     $product_discount_table = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_id='" . $product_table["id"] . "' && val_1='" . $chain . "'");
                 }
 

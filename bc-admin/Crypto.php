@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 include("../func/bc-admin-config.php");
 
 if (isset($_POST["update-key"])) {
@@ -98,7 +100,7 @@ if (isset($_POST["install-product"])) {
                             $select_product_details = mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$product_name'");
                             if (mysqli_num_rows($select_product_details) == 1) {
                                 $get_product_details = mysqli_fetch_array($select_product_details);
-                                $get_selected_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='$api_id'"));
+                                $get_selected_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='$api_id'");
                                 $select_api_list_with_api_type = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id!='$api_id' && api_type='" . $get_selected_api_list["api_type"] . "' LIMIT 1");
                                 if (mysqli_num_rows($select_api_list_with_api_type) == 1) {
                                     $get_api_list_with_api_type = mysqli_fetch_array($select_api_list_with_api_type);
@@ -174,7 +176,7 @@ if (isset($_POST["install-product"])) {
                             $select_product_details = mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$product_name'");
                             if (mysqli_num_rows($select_product_details) == 1) {
                                 $get_product_details = mysqli_fetch_array($select_product_details);
-                                $get_selected_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='$api_id'"));
+                                $get_selected_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='$api_id'");
                                 $select_api_list_with_api_type = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id!='$api_id' && api_type='" . $get_selected_api_list["api_type"] . "' LIMIT 1");
                                 if (mysqli_num_rows($select_api_list_with_api_type) == 1) {
                                     $get_api_list_with_api_type = mysqli_fetch_array($select_api_list_with_api_type);
@@ -296,7 +298,7 @@ if (isset($_POST["update-exchange"])) {
             $smart_price = $smart_price_array[$index];
             $agent_price = $agent_price_array[$index];
             $api_price = $api_price_array[$index];
-            $get_selected_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='$api_id'"));
+            $get_selected_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='$api_id'");
             $select_api_list_with_api_type = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && api_type='" . $get_selected_api_list["api_type"] . "'");
             if (mysqli_num_rows($select_api_list_with_api_type) > 0) {
                 while ($refined_api_id = mysqli_fetch_assoc($select_api_list_with_api_type)) {
@@ -352,7 +354,7 @@ if (isset($_POST["update-price"])) {
             $smart_price = $smart_price_array[$index];
             $agent_price = $agent_price_array[$index];
             $api_price = $api_price_array[$index];
-            $get_selected_api_list = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='$api_id'"));
+            $get_selected_api_list = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='$api_id'");
             $select_api_list_with_api_type = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && api_type='" . $get_selected_api_list["api_type"] . "'");
             if (mysqli_num_rows($select_api_list_with_api_type) > 0) {
                 while ($refined_api_id = mysqli_fetch_assoc($select_api_list_with_api_type)) {
@@ -704,10 +706,10 @@ $csv_price_level_array[] = "product_name,smart_level,agent_level,api_level";
                                     <?php
                                     $item_name_array_2 = array("ngn", "usd", "gbp", "cad", "eur", "btc", "eth", "doge", "usdt", "usdc", "sol", "ada", "trx");
                                     foreach ($item_name_array_2 as $products) {
-                                        $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_crypto_status WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$products'"));
+                                        $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_crypto_status WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$products'");
                                         $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='crypto'");
                                         $account_level_table_name_arrays = array(1 => "sas_smart_exchange_fee_parameter_values", 2 => "sas_agent_exchange_fee_parameter_values", 3 => "sas_api_exchange_fee_parameter_values");
-                                        $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$products' LIMIT 1"));
+                                        $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$products' LIMIT 1");
                                         $product_smart_table = mysqli_query($connection_server, "SELECT * FROM " . $account_level_table_name_arrays[1] . " WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && api_id='" . $get_item_status_details["api_id"] . "' && product_id='" . $product_table["id"] . "'");
                                         $product_agent_table = mysqli_query($connection_server, "SELECT * FROM " . $account_level_table_name_arrays[2] . " WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && api_id='" . $get_item_status_details["api_id"] . "' && product_id='" . $product_table["id"] . "'");
                                         $product_api_table = mysqli_query($connection_server, "SELECT * FROM " . $account_level_table_name_arrays[3] . " WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && api_id='" . $get_item_status_details["api_id"] . "' && product_id='" . $product_table["id"] . "'");
@@ -805,10 +807,10 @@ $csv_price_level_array[] = "product_name,smart_level,agent_level,api_level";
                                     <?php
                                     $item_name_array_3 = array("ngn", "usd", "gbp", "cad", "eur", "btc", "eth", "doge", "usdt", "usdc", "sol", "ada", "trx");
                                     foreach ($item_name_array_3 as $products) {
-                                        $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_crypto_status WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$products'"));
+                                        $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_crypto_status WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$products'");
                                         $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='crypto'");
                                         $account_level_table_name_arrays = array(1 => "sas_smart_parameter_values", 2 => "sas_agent_parameter_values", 3 => "sas_api_parameter_values");
-                                        $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$products' LIMIT 1"));
+                                        $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && product_name='$products' LIMIT 1");
                                         $product_smart_table = mysqli_query($connection_server, "SELECT * FROM " . $account_level_table_name_arrays[1] . " WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && api_id='" . $get_item_status_details["api_id"] . "' && product_id='" . $product_table["id"] . "'");
                                         $product_agent_table = mysqli_query($connection_server, "SELECT * FROM " . $account_level_table_name_arrays[2] . " WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && api_id='" . $get_item_status_details["api_id"] . "' && product_id='" . $product_table["id"] . "'");
                                         $product_api_table = mysqli_query($connection_server, "SELECT * FROM " . $account_level_table_name_arrays[3] . " WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && api_id='" . $get_item_status_details["api_id"] . "' && product_id='" . $product_table["id"] . "'");
