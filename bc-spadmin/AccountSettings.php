@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-spadmin-config.php");
     
     
@@ -510,9 +512,9 @@
 		header("Location: ".$_SERVER["REQUEST_URI"]);
 	}
 
-	$get_admin_payment_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin_payments LIMIT 1"));
-	$get_admin_payment_order_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin_payment_orders LIMIT 1"));
-	$get_site_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin_site_details LIMIT 1"));
+	$get_admin_payment_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin_payments LIMIT 1");
+	$get_admin_payment_order_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin_payment_orders LIMIT 1");
+	$get_site_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin_site_details LIMIT 1");
     
 
 ?>

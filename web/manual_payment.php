@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     // Use basic configs
     include("../func/bc-connect.php");
 	include("../func/bc-func.php");

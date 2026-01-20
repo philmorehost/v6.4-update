@@ -1,10 +1,12 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     //header("Content-Type", "application/json");
     include_once("func/bc-connect.php");
     include_once("func/bc-func.php");
 
     //Select Vendor Table
-	$select_vendor_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1"));
+	$select_vendor_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1");
 	if(($select_vendor_table == true) && ($select_vendor_table["website_url"] == $_SERVER["HTTP_HOST"]) && ($select_vendor_table["status"] == 1)){
         $get_api_post_info = json_decode(file_get_contents('php://input'),true);
         

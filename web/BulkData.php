@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 include("../func/bc-config.php");
 
 if (isset($_POST["buy-data"])) {
@@ -143,11 +145,11 @@ if (isset($_POST["buy-data"])) {
                 $data_type_table_name_arrays = array("shared-data" => "sas_shared_data_status", "sme-data" => "sas_sme_data_status", "cg-data" => "sas_cg_data_status", "dd-data" => "sas_dd_data_status");
 
                 //MTN SHARED
-                $get_mtn_shared_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["shared-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'"));
+                $get_mtn_shared_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["shared-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'");
                 $get_api_enabled_shared_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_mtn_shared_status_details["api_id"] . "' && api_type='shared-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_shared_data_lists) == 1) {
                     $get_api_enabled_shared_data_lists = mysqli_fetch_array($get_api_enabled_shared_data_lists);
-                    $product_table_mtn_shared_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1"));
+                    $product_table_mtn_shared_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1");
                     if ($product_table_mtn_shared_data["status"] == 1) {
                         $product_discount_table_mtn_shared_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_shared_data_lists["id"] . "' && product_id='" . $product_table_mtn_shared_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_mtn_shared_data) > 0) {
@@ -161,11 +163,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //MTN SME
-                $get_mtn_sme_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["sme-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'"));
+                $get_mtn_sme_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["sme-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'");
                 $get_api_enabled_sme_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_mtn_sme_status_details["api_id"] . "' && api_type='sme-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_sme_data_lists) == 1) {
                     $get_api_enabled_sme_data_lists = mysqli_fetch_array($get_api_enabled_sme_data_lists);
-                    $product_table_mtn_sme_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1"));
+                    $product_table_mtn_sme_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1");
                     if ($product_table_mtn_sme_data["status"] == 1) {
                         $product_discount_table_mtn_sme_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_sme_data_lists["id"] . "' && product_id='" . $product_table_mtn_sme_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_mtn_sme_data) > 0) {
@@ -179,11 +181,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //MTN CG
-                $get_mtn_cg_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["cg-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'"));
+                $get_mtn_cg_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["cg-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'");
                 $get_api_enabled_cg_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_mtn_cg_status_details["api_id"] . "' && api_type='cg-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_cg_data_lists) == 1) {
                     $get_api_enabled_cg_data_lists = mysqli_fetch_array($get_api_enabled_cg_data_lists);
-                    $product_table_mtn_cg_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1"));
+                    $product_table_mtn_cg_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1");
                     if ($product_table_mtn_cg_data["status"] == 1) {
                         $product_discount_table_mtn_cg_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_cg_data_lists["id"] . "' && product_id='" . $product_table_mtn_cg_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_mtn_cg_data) > 0) {
@@ -197,11 +199,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //MTN DD
-                $get_mtn_dd_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dd-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'"));
+                $get_mtn_dd_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dd-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "'");
                 $get_api_enabled_dd_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_mtn_dd_status_details["api_id"] . "' && api_type='dd-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_dd_data_lists) == 1) {
                     $get_api_enabled_dd_data_lists = mysqli_fetch_array($get_api_enabled_dd_data_lists);
-                    $product_table_mtn_dd_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1"));
+                    $product_table_mtn_dd_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[0] . "' LIMIT 1");
                     if ($product_table_mtn_dd_data["status"] == 1) {
                         $product_discount_table_mtn_dd_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_dd_data_lists["id"] . "' && product_id='" . $product_table_mtn_dd_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_mtn_dd_data) > 0) {
@@ -215,11 +217,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //AIRTEL SHARED
-                $get_airtel_shared_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["shared-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'"));
+                $get_airtel_shared_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["shared-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'");
                 $get_api_enabled_shared_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_airtel_shared_status_details["api_id"] . "' && api_type='shared-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_shared_data_lists) == 1) {
                     $get_api_enabled_shared_data_lists = mysqli_fetch_array($get_api_enabled_shared_data_lists);
-                    $product_table_airtel_shared_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1"));
+                    $product_table_airtel_shared_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1");
                     if ($product_table_airtel_shared_data["status"] == 1) {
                         $product_discount_table_airtel_shared_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_shared_data_lists["id"] . "' && product_id='" . $product_table_airtel_shared_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_airtel_shared_data) > 0) {
@@ -233,11 +235,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //AIRTEL SME
-                $get_airtel_sme_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["sme-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'"));
+                $get_airtel_sme_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["sme-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'");
                 $get_api_enabled_sme_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_airtel_sme_status_details["api_id"] . "' && api_type='sme-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_sme_data_lists) == 1) {
                     $get_api_enabled_sme_data_lists = mysqli_fetch_array($get_api_enabled_sme_data_lists);
-                    $product_table_airtel_sme_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1"));
+                    $product_table_airtel_sme_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1");
                     if ($product_table_airtel_sme_data["status"] == 1) {
                         $product_discount_table_airtel_sme_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_sme_data_lists["id"] . "' && product_id='" . $product_table_airtel_sme_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_airtel_sme_data) > 0) {
@@ -251,11 +253,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //AIRTEL CG
-                $get_airtel_cg_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["cg-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'"));
+                $get_airtel_cg_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["cg-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'");
                 $get_api_enabled_cg_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_airtel_cg_status_details["api_id"] . "' && api_type='cg-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_cg_data_lists) == 1) {
                     $get_api_enabled_cg_data_lists = mysqli_fetch_array($get_api_enabled_cg_data_lists);
-                    $product_table_airtel_cg_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1"));
+                    $product_table_airtel_cg_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1");
                     if ($product_table_airtel_cg_data["status"] == 1) {
                         $product_discount_table_airtel_cg_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_cg_data_lists["id"] . "' && product_id='" . $product_table_airtel_cg_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_airtel_cg_data) > 0) {
@@ -269,11 +271,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //AIRTEL DD
-                $get_airtel_dd_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dd-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'"));
+                $get_airtel_dd_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dd-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "'");
                 $get_api_enabled_dd_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_airtel_dd_status_details["api_id"] . "' && api_type='dd-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_dd_data_lists) == 1) {
                     $get_api_enabled_dd_data_lists = mysqli_fetch_array($get_api_enabled_dd_data_lists);
-                    $product_table_airtel_dd_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1"));
+                    $product_table_airtel_dd_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[1] . "' LIMIT 1");
                     if ($product_table_airtel_dd_data["status"] == 1) {
                         $product_discount_table_airtel_dd_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_dd_data_lists["id"] . "' && product_id='" . $product_table_airtel_dd_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_airtel_dd_data) > 0) {
@@ -287,11 +289,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //GLO SHARED
-                $get_glo_shared_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["shared-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'"));
+                $get_glo_shared_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["shared-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'");
                 $get_api_enabled_shared_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_glo_shared_status_details["api_id"] . "' && api_type='shared-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_shared_data_lists) == 1) {
                     $get_api_enabled_shared_data_lists = mysqli_fetch_array($get_api_enabled_shared_data_lists);
-                    $product_table_glo_shared_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1"));
+                    $product_table_glo_shared_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1");
                     if ($product_table_glo_shared_data["status"] == 1) {
                         $product_discount_table_glo_shared_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_shared_data_lists["id"] . "' && product_id='" . $product_table_glo_shared_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_glo_shared_data) > 0) {
@@ -305,11 +307,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //GLO SME
-                $get_glo_sme_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["sme-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'"));
+                $get_glo_sme_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["sme-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'");
                 $get_api_enabled_sme_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_glo_sme_status_details["api_id"] . "' && api_type='sme-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_sme_data_lists) == 1) {
                     $get_api_enabled_sme_data_lists = mysqli_fetch_array($get_api_enabled_sme_data_lists);
-                    $product_table_glo_sme_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1"));
+                    $product_table_glo_sme_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1");
                     if ($product_table_glo_sme_data["status"] == 1) {
                         $product_discount_table_glo_sme_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_sme_data_lists["id"] . "' && product_id='" . $product_table_glo_sme_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_glo_sme_data) > 0) {
@@ -323,11 +325,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //GLO CG
-                $get_glo_cg_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["cg-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'"));
+                $get_glo_cg_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["cg-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'");
                 $get_api_enabled_cg_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_glo_cg_status_details["api_id"] . "' && api_type='cg-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_cg_data_lists) == 1) {
                     $get_api_enabled_cg_data_lists = mysqli_fetch_array($get_api_enabled_cg_data_lists);
-                    $product_table_glo_cg_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1"));
+                    $product_table_glo_cg_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1");
                     if ($product_table_glo_cg_data["status"] == 1) {
                         $product_discount_table_glo_cg_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_cg_data_lists["id"] . "' && product_id='" . $product_table_glo_cg_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_glo_cg_data) > 0) {
@@ -341,11 +343,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //GLO DD
-                $get_glo_dd_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dd-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'"));
+                $get_glo_dd_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dd-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "'");
                 $get_api_enabled_dd_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_glo_dd_status_details["api_id"] . "' && api_type='dd-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_dd_data_lists) == 1) {
                     $get_api_enabled_dd_data_lists = mysqli_fetch_array($get_api_enabled_dd_data_lists);
-                    $product_table_glo_dd_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1"));
+                    $product_table_glo_dd_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[2] . "' LIMIT 1");
                     if ($product_table_glo_dd_data["status"] == 1) {
                         $product_discount_table_glo_dd_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_dd_data_lists["id"] . "' && product_id='" . $product_table_glo_dd_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_glo_dd_data) > 0) {
@@ -359,11 +361,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //9MOBILE SHARED
-                $get_9mobile_shared_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["shared-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "'"));
+                $get_9mobile_shared_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["shared-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "'");
                 $get_api_enabled_shared_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_9mobile_shared_status_details["api_id"] . "' && api_type='shared-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_shared_data_lists) == 1) {
                     $get_api_enabled_shared_data_lists = mysqli_fetch_array($get_api_enabled_shared_data_lists);
-                    $product_table_9mobile_shared_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "' LIMIT 1"));
+                    $product_table_9mobile_shared_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "' LIMIT 1");
                     if ($product_table_9mobile_shared_data["status"] == 1) {
                         $product_discount_table_9mobile_shared_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_shared_data_lists["id"] . "' && product_id='" . $product_table_9mobile_shared_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_9mobile_shared_data) > 0) {
@@ -377,11 +379,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //9MOBILE SME
-                $get_9mobile_sme_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["sme-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "'"));
+                $get_9mobile_sme_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["sme-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "'");
                 $get_api_enabled_sme_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_9mobile_sme_status_details["api_id"] . "' && api_type='sme-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_sme_data_lists) == 1) {
                     $get_api_enabled_sme_data_lists = mysqli_fetch_array($get_api_enabled_sme_data_lists);
-                    $product_table_9mobile_sme_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "' LIMIT 1"));
+                    $product_table_9mobile_sme_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "' LIMIT 1");
                     if ($product_table_9mobile_sme_data["status"] == 1) {
                         $product_discount_table_9mobile_sme_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_sme_data_lists["id"] . "' && product_id='" . $product_table_9mobile_sme_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_9mobile_sme_data) > 0) {
@@ -395,11 +397,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //9MOBILE CG
-                $get_9mobile_cg_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["cg-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "'"));
+                $get_9mobile_cg_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["cg-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "'");
                 $get_api_enabled_cg_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_9mobile_cg_status_details["api_id"] . "' && api_type='cg-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_cg_data_lists) == 1) {
                     $get_api_enabled_cg_data_lists = mysqli_fetch_array($get_api_enabled_cg_data_lists);
-                    $product_table_9mobile_cg_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "' LIMIT 1"));
+                    $product_table_9mobile_cg_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "' LIMIT 1");
                     if ($product_table_9mobile_cg_data["status"] == 1) {
                         $product_discount_table_9mobile_cg_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_cg_data_lists["id"] . "' && product_id='" . $product_table_9mobile_cg_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_9mobile_cg_data) > 0) {
@@ -413,11 +415,11 @@ if (isset($_POST["buy-data"])) {
                 }
 
                 //9MOBILE DD
-                $get_9mobile_dd_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dd-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "'"));
+                $get_9mobile_dd_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $data_type_table_name_arrays["dd-data"] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "'");
                 $get_api_enabled_dd_data_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_9mobile_dd_status_details["api_id"] . "' && api_type='dd-data' && status='1' LIMIT 1");
                 if (mysqli_num_rows($get_api_enabled_dd_data_lists) == 1) {
                     $get_api_enabled_dd_data_lists = mysqli_fetch_array($get_api_enabled_dd_data_lists);
-                    $product_table_9mobile_dd_data = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "' LIMIT 1"));
+                    $product_table_9mobile_dd_data = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name_array[3] . "' LIMIT 1");
                     if ($product_table_9mobile_dd_data["status"] == 1) {
                         $product_discount_table_9mobile_dd_data = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $get_api_enabled_dd_data_lists["id"] . "' && product_id='" . $product_table_9mobile_dd_data["id"] . "'");
                         if (mysqli_num_rows($product_discount_table_9mobile_dd_data) > 0) {

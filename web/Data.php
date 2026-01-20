@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-config.php");
         
     if(isset($_POST["buy-card"])){
@@ -90,11 +92,11 @@
                             $data_type_table_name_arrays = array("datacard"=>"sas_datacard_status", "rechargecard"=>"sas_rechargecard_status", "dd-data"=>"sas_dd_data_status");
                             
                             //MTN DATACARD
-                            $get_mtn_datacard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["datacard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."'"));
+                            $get_mtn_datacard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["datacard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."'");
                             $get_api_enabled_datacard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_mtn_datacard_status_details["api_id"]."' && api_type='datacard' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_datacard_lists) == 1){
                                 $get_api_enabled_datacard_lists = mysqli_fetch_array($get_api_enabled_datacard_lists);
-                                $product_table_mtn_datacard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."' LIMIT 1"));
+                                $product_table_mtn_datacard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."' LIMIT 1");
                                 if($product_table_mtn_datacard["status"] == 1){
                                     $product_discount_table_mtn_datacard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_datacard_lists["id"]."' && product_id='".$product_table_mtn_datacard["id"]."'");
                                     if(mysqli_num_rows($product_discount_table_mtn_datacard) > 0){
@@ -108,11 +110,11 @@
                             }
 
                             //MTN RECHARGECARD
-                            $get_mtn_rechargecard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["rechargecard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."'"));
+                            $get_mtn_rechargecard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["rechargecard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."'");
                             $get_api_enabled_rechargecard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_mtn_rechargecard_status_details["api_id"]."' && api_type='rechargecard' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_rechargecard_lists) == 1){
                                 $get_api_enabled_rechargecard_lists = mysqli_fetch_array($get_api_enabled_rechargecard_lists);
-                                $product_table_mtn_rechargecard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."' LIMIT 1"));
+                                $product_table_mtn_rechargecard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[0]."' LIMIT 1");
                                 if($product_table_mtn_rechargecard["status"] == 1){
                                     $product_discount_table_mtn_rechargecard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_rechargecard_lists["id"]."' && product_id='".$product_table_mtn_rechargecard["id"]."'");
                                     if(mysqli_num_rows($product_discount_table_mtn_rechargecard) > 0){
@@ -126,11 +128,11 @@
                             }
 
                             //AIRTEL DATACARD
-                            $get_airtel_datacard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["datacard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."'"));
+                            $get_airtel_datacard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["datacard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."'");
                             $get_api_enabled_datacard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_airtel_datacard_status_details["api_id"]."' && api_type='datacard' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_datacard_lists) == 1){
                                 $get_api_enabled_datacard_lists = mysqli_fetch_array($get_api_enabled_datacard_lists);
-                                $product_table_airtel_datacard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."' LIMIT 1"));
+                                $product_table_airtel_datacard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."' LIMIT 1");
                                 if($product_table_airtel_datacard["status"] == 1){
                                     $product_discount_table_airtel_datacard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_datacard_lists["id"]."' && product_id='".$product_table_airtel_datacard["id"]."'");
                                     if(mysqli_num_rows($product_discount_table_airtel_datacard) > 0){
@@ -144,11 +146,11 @@
                             }
 
                             //AIRTEL RECHARGECARD
-                            $get_airtel_rechargecard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["rechargecard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."'"));
+                            $get_airtel_rechargecard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["rechargecard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."'");
                             $get_api_enabled_rechargecard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_airtel_rechargecard_status_details["api_id"]."' && api_type='rechargecard' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_rechargecard_lists) == 1){
                                 $get_api_enabled_rechargecard_lists = mysqli_fetch_array($get_api_enabled_rechargecard_lists);
-                                $product_table_airtel_rechargecard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."' LIMIT 1"));
+                                $product_table_airtel_rechargecard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[1]."' LIMIT 1");
                                 if($product_table_airtel_rechargecard["status"] == 1){
                                     $product_discount_table_airtel_rechargecard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_rechargecard_lists["id"]."' && product_id='".$product_table_airtel_rechargecard["id"]."'");
                                     if(mysqli_num_rows($product_discount_table_airtel_rechargecard) > 0){
@@ -162,11 +164,11 @@
                             }
 
                             //GLO DATACARD
-                            $get_glo_datacard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["datacard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."'"));
+                            $get_glo_datacard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["datacard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."'");
                             $get_api_enabled_datacard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_glo_datacard_status_details["api_id"]."' && api_type='datacard' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_datacard_lists) == 1){
                                 $get_api_enabled_datacard_lists = mysqli_fetch_array($get_api_enabled_datacard_lists);
-                                $product_table_glo_datacard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."' LIMIT 1"));
+                                $product_table_glo_datacard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."' LIMIT 1");
                                 if($product_table_glo_datacard["status"] == 1){
                                     $product_discount_table_glo_datacard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_datacard_lists["id"]."' && product_id='".$product_table_glo_datacard["id"]."'");
                                     if(mysqli_num_rows($product_discount_table_glo_datacard) > 0){
@@ -180,11 +182,11 @@
                             }
 
                             //GLO RECHARGECARD
-                            $get_glo_rechargecard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["rechargecard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."'"));
+                            $get_glo_rechargecard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["rechargecard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."'");
                             $get_api_enabled_rechargecard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_glo_rechargecard_status_details["api_id"]."' && api_type='rechargecard' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_rechargecard_lists) == 1){
                                 $get_api_enabled_rechargecard_lists = mysqli_fetch_array($get_api_enabled_rechargecard_lists);
-                                $product_table_glo_rechargecard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."' LIMIT 1"));
+                                $product_table_glo_rechargecard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[2]."' LIMIT 1");
                                 if($product_table_glo_rechargecard["status"] == 1){
                                     $product_discount_table_glo_rechargecard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_rechargecard_lists["id"]."' && product_id='".$product_table_glo_rechargecard["id"]."'");
                                     if(mysqli_num_rows($product_discount_table_glo_rechargecard) > 0){
@@ -198,11 +200,11 @@
                             }
 
                             //9MOBILE DATACARD
-                            $get_9mobile_datacard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["datacard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."'"));
+                            $get_9mobile_datacard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["datacard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."'");
                             $get_api_enabled_datacard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_9mobile_datacard_status_details["api_id"]."' && api_type='datacard' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_datacard_lists) == 1){
                                 $get_api_enabled_datacard_lists = mysqli_fetch_array($get_api_enabled_datacard_lists);
-                                $product_table_9mobile_datacard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."' LIMIT 1"));
+                                $product_table_9mobile_datacard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."' LIMIT 1");
                                 if($product_table_9mobile_datacard["status"] == 1){
                                     $product_discount_table_9mobile_datacard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_datacard_lists["id"]."' && product_id='".$product_table_9mobile_datacard["id"]."'");
                                     if(mysqli_num_rows($product_discount_table_9mobile_datacard) > 0){
@@ -216,11 +218,11 @@
                             }
 
                             //9MOBILE RECHARGECARD
-                            $get_9mobile_rechargecard_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["rechargecard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."'"));
+                            $get_9mobile_rechargecard_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM ".$data_type_table_name_arrays["rechargecard"]." WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."'");
                             $get_api_enabled_rechargecard_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && id='".$get_9mobile_rechargecard_status_details["api_id"]."' && api_type='rechargecard' && status='1' LIMIT 1");
                             if(mysqli_num_rows($get_api_enabled_rechargecard_lists) == 1){
                                 $get_api_enabled_rechargecard_lists = mysqli_fetch_array($get_api_enabled_rechargecard_lists);
-                                $product_table_9mobile_rechargecard = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."' LIMIT 1"));
+                                $product_table_9mobile_rechargecard = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && product_name='".$product_name_array[3]."' LIMIT 1");
                                 if($product_table_9mobile_rechargecard["status"] == 1){
                                     $product_discount_table_9mobile_rechargecard = mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='".$get_logged_user_details["vendor_id"]."' && api_id='".$get_api_enabled_rechargecard_lists["id"]."' && product_id='".$product_table_9mobile_rechargecard["id"]."'");
                                     if(mysqli_num_rows($product_discount_table_9mobile_rechargecard) > 0){

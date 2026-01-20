@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 // Initialize variables to be used in the template
 $whatsapp_number = '';
 $header_image_url = '';

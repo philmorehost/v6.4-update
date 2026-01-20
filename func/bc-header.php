@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 $user_vendor_status_message_template_text = "";
 $user_vendor_status_message_template_date = "";
 if ($connection_server && isset($get_logged_user_details)) {

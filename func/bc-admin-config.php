@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 	if(isset($_SERVER["HTTPS"]) && ($_SERVER["HTTPS"] == "on")){
 		$web_http_host = "https://".$_SERVER["HTTP_HOST"];
 	}else{
@@ -35,10 +37,10 @@
 	}
 
 	//Select Vendor Table
-	$select_vendor_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1"));
+	$select_vendor_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1");
 	if((($select_vendor_table == true) && ($select_vendor_table["website_url"] == $_SERVER["HTTP_HOST"]) && ($select_vendor_table["status"] == 1)) || (isset($_SESSION["spadmin_vendor_auth"]))){
 		if(isset($_SESSION["admin_session"])){
-			$get_vendor_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1"));
+			$get_vendor_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."' LIMIT 1");
 			$get_logged_admin_query = mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='".$get_vendor_details["id"]."' && email='".$_SESSION["admin_session"]."' LIMIT 1");
 			if(mysqli_num_rows($get_logged_admin_query) == 1){
 				$get_logged_admin_details = mysqli_fetch_array($get_logged_admin_query);
@@ -106,7 +108,7 @@
 							$config_kyc_verification_status_array = array();
 							$config_kyc_verification_status_array_value = array();
 							foreach(array("bvn", "nin") as $config_verification_name){
-								$config_get_verification_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin_kyc_verifications WHERE verification_name='$config_verification_name'"));
+								$config_get_verification_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin_kyc_verifications WHERE verification_name='$config_verification_name'");
 								if(in_array($config_get_verification_details["status"], array(1, 2))){
 									if($config_get_verification_details["status"] == 1){
 										array_push($config_kyc_verification_status_array, "1");
@@ -183,7 +185,7 @@
 				}
 			}
 		}
-		$get_all_super_admin_site_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin_site_details LIMIT 1"));
+		$get_all_super_admin_site_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin_site_details LIMIT 1");
 	}else{
 		header("Location: /bc-admin/Error.php");
 	}

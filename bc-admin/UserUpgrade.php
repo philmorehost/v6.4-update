@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-admin-config.php");
     
     $user_id_number = mysqli_real_escape_string($connection_server, preg_replace("/[^0-9]+/", "", trim(strip_tags($_GET["userID"]))));
@@ -157,7 +159,7 @@
 					<?php
 						$account_level_upgrade_array = array(1 => "smart", 2 => "agent", 3 => "api");
                         foreach($account_level_upgrade_array as $index => $account_levels){
-                            $get_upgrade_price = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_user_upgrade_price WHERE vendor_id='".$get_logged_admin_details["id"]."' && account_type='".$index."' LIMIT 1"));
+                            $get_upgrade_price = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_user_upgrade_price WHERE vendor_id='".$get_logged_admin_details["id"]."' && account_type='".$index."' LIMIT 1");
                             if($index == $get_user_details['account_level']){
                                 echo '<option value="'.$account_levels.'" selected>'.accountLevel($index).' @ N'.toDecimal($get_upgrade_price["price"], 2).'</option>';
                             }else{

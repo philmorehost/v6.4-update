@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 include ("../func/bc-admin-config.php");
 
 
@@ -232,7 +234,7 @@ if (isset($_POST["update-verification"])) {
                                 $admin_monnify_account_reference = md5($_SERVER["HTTP_HOST"]."-".$get_logged_admin_details["id"]."-".$get_logged_admin_details["email"]);
                                 $get_monnify_reserve_account = json_decode(makeMonnifyRequest("get", $get_monnify_access_token["token"], "api/v2/bank-transfer/reserved-accounts/".$admin_monnify_account_reference, ""), true);
                                 if($get_monnify_reserve_account["status"] == "failed"){
-                                    $select_monnify_gateway_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin_payment_gateways WHERE gateway_name='monnify' LIMIT 1"));
+                                    $select_monnify_gateway_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin_payment_gateways WHERE gateway_name='monnify' LIMIT 1");
                                     $monnify_create_reserve_account_array = array("accountReference" => $admin_monnify_account_reference, "accountName" => $get_logged_admin_details["firstname"]." ".$get_logged_admin_details["lastname"]." ".$get_logged_admin_details["othername"], "currencyCode" => "NGN", "contractCode" => $select_monnify_gateway_details["encrypt_key"], "customerEmail" => $get_logged_admin_details["email"], $bvn_nin_monnify_account_creation, "getAllAvailableBanks" => false, "preferredBanks" => ["232", "035", "50515", "058"]);
                                     makeMonnifyRequest("post", $get_monnify_access_token["token"], "api/v2/bank-transfer/reserved-accounts", $monnify_create_reserve_account_array);
                                 }
@@ -1070,12 +1072,12 @@ if (isset($_POST["update-primary-color"])) {
 }
 
 
-$get_admin_payment_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_admin_payments WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1"));
-$get_admin_payment_order_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_admin_payment_orders WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1"));
-$get_user_daily_purchase_limit_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_daily_purchase_limit WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1"));
-$get_user_minimum_funding_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_user_minimum_funding WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1"));
-$get_recaptcha_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_recaptcha_setting WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1"));
-$get_site_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_site_details WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1"));
+$get_admin_payment_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_admin_payments WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1");
+$get_admin_payment_order_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_admin_payment_orders WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1");
+$get_user_daily_purchase_limit_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_daily_purchase_limit WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1");
+$get_user_minimum_funding_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_user_minimum_funding WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1");
+$get_recaptcha_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_recaptcha_setting WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1");
+$get_site_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_site_details WHERE vendor_id='" . $get_logged_admin_details["id"] . "' LIMIT 1");
 
 
 ?>
@@ -1626,7 +1628,7 @@ $get_site_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT 
             <?php
             $upgrade_level_array = array(1 => "smart user", 2 => "agent vendor", 3 => "api vendor");
             foreach ($upgrade_level_array as $index => $level_name) {
-                $get_upgrade_price_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_user_upgrade_price WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && account_type='$index'"));
+                $get_upgrade_price_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_user_upgrade_price WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && account_type='$index'");
                 echo '<div style="text-align: center;" class="text-dark h5">
                                     <span id="admin-status-span" class="h5" style="user-select: auto;">' . strtoupper($level_name) . '</span>
                                 </div><br/>
@@ -1651,7 +1653,7 @@ $get_site_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT 
             <?php
             $referral_level_array = array(2 => "agent vendor", 3 => "api vendor");
             foreach ($referral_level_array as $index => $level_name) {
-                $get_referral_percent_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_referral_percents WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && account_level='$index'"));
+                $get_referral_percent_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_referral_percents WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && account_level='$index'");
                 echo '<div style="text-align: center;" class="text-dark h5">
                                     <span id="admin-status-span" class="h5" style="user-select: auto;">' . strtoupper($level_name) . '</span>
                                 </div><br/>

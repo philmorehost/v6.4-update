@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
     $get_user_transaction_details = mysqli_query($connection_server, "SELECT * FROM sas_vendor_transactions ORDER BY date DESC LIMIT 5");
 ?>
 <div class="card info-card px-5 py-5">

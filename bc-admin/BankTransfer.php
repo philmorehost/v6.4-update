@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
 include("../func/bc-admin-config.php");
 
 $bank_transfer_gateway_array = array("merchant.beewave.ng", "fincra.com");
@@ -156,7 +158,7 @@ if (isset($_POST["update-gateway-details"])) {
                 <form method="post" action="">
                     <?php
                     foreach ($bank_transfer_gateway_array as $gateway_name) {
-                        $get_gateway_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_bank_transfer_gateways WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && gateway_name='$gateway_name'"));
+                        $get_gateway_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_bank_transfer_gateways WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && gateway_name='$gateway_name'");
                         if (in_array($get_gateway_details["status"], array(1, 2))) {
                             if ($get_gateway_details["status"] == 1) {
                                 $gateway_checkbox_value = "checked";

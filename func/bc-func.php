@@ -1,4 +1,14 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
+if (!function_exists('mysqli_query_and_fetch_array')) {
+    function mysqli_query_and_fetch_array($conn, $query) {
+        $res = mysqli_query($conn, $query);
+        return ($res) ? mysqli_fetch_array($res) : null;
+    }
+}
+
 function accountLevel($levelNumber)
 {
 	if (is_numeric($levelNumber)) {
@@ -132,8 +142,8 @@ function chargeUser($type, $product_unique_id, $type_alternative, $reference, $a
 	$transactionTypeArray = array("credit", "debit");
 	$statusArray = array(1, 2, 3);
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1");
 
 
 	if (!empty($get_logged_user_det["balance"]) && is_numeric($get_logged_user_det["balance"]) && !empty($amount) && is_numeric($amount) && !empty($discounted_amount) && is_numeric($discounted_amount) && ($discounted_amount > 0)) {
@@ -237,8 +247,8 @@ function chargeOtherUser($user_id, $type, $product_unique_id, $type_alternative,
 	$transactionTypeArray = array("credit", "debit");
 	$statusArray = array(1, 2, 3);
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $user_id . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $user_id . "' LIMIT 1");
 
 
 	if (!empty($get_logged_user_det["balance"]) && is_numeric($get_logged_user_det["balance"]) && !empty($amount) && is_numeric($amount) && !empty($discounted_amount) && is_numeric($discounted_amount) && ($discounted_amount > 0)) {
@@ -339,9 +349,9 @@ function chargeVendor($type, $product_unique_id, $type_alternative, $reference, 
 	$transactionTypeArray = array("credit", "debit");
 	$statusArray = array(1, 2, 3);
 
-	$get_spadmin_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin LIMIT 1"));
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "' LIMIT 1"));
+	$get_spadmin_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin LIMIT 1");
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "' LIMIT 1");
 
 
 	if (!empty($get_logged_user_det["balance"]) && is_numeric($get_logged_user_det["balance"]) && !empty($amount) && is_numeric($amount) && !empty($discounted_amount) && is_numeric($discounted_amount) && ($discounted_amount > 0)) {
@@ -442,8 +452,8 @@ function chargeOtherVendor($vendor_id, $type, $product_unique_id, $type_alternat
 	$transactionTypeArray = array("credit", "debit");
 	$statusArray = array(1, 2, 3);
 
-	$get_spadmin_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE email='" . $vendor_id . "' LIMIT 1"));
+	$get_spadmin_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE email='" . $vendor_id . "' LIMIT 1");
 
 
 	if (!empty($get_logged_user_det["balance"]) && is_numeric($get_logged_user_det["balance"]) && !empty($amount) && is_numeric($amount) && !empty($discounted_amount) && is_numeric($discounted_amount) && ($discounted_amount > 0)) {
@@ -537,8 +547,8 @@ function addUserVirtualBank($reference, $bank_code, $bank_name, $account_number,
 	$account_number = mysqli_real_escape_string($connection_server, trim(strip_tags($account_number)));
 	$account_name = mysqli_real_escape_string($connection_server, trim(strip_tags($account_name)));
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1");
 
 	if (!empty($reference) && !empty($bank_code) && !empty($bank_name) && !empty($account_number) && !empty($account_name)) {
 		$select_banks = mysqli_query($connection_server, "SELECT * FROM sas_user_banks WHERE vendor_id='" . $get_logged_user_det["vendor_id"] . "' && username='" . $get_logged_user_det["username"] . "' && bank_code='" . $bank_code . "'");
@@ -552,8 +562,8 @@ function getUserVirtualBank()
 {
 	global $connection_server;
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1");
 
 	$select_banks = mysqli_query($connection_server, "SELECT * FROM sas_user_banks WHERE vendor_id='" . $get_logged_user_det["vendor_id"] . "' && username='" . $get_logged_user_det["username"] . "'");
 	if (($select_banks == true) && (mysqli_num_rows($select_banks) >= 1)) {
@@ -579,8 +589,8 @@ function addVendorVirtualBank($reference, $bank_code, $bank_name, $account_numbe
 	$account_number = mysqli_real_escape_string($connection_server, trim(strip_tags($account_number)));
 	$account_name = mysqli_real_escape_string($connection_server, trim(strip_tags($account_name)));
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "' LIMIT 1");
 
 	if (!empty($reference) && !empty($bank_code) && !empty($bank_name) && !empty($account_number) && !empty($account_name)) {
 		$select_banks = mysqli_query($connection_server, "SELECT * FROM sas_vendor_banks WHERE vendor_id='" . $get_logged_user_det["id"] . "' && bank_code='" . $bank_code . "'");
@@ -594,8 +604,8 @@ function getVendorVirtualBank()
 {
 	global $connection_server;
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "' LIMIT 1");
 
 	$select_banks = mysqli_query($connection_server, "SELECT * FROM sas_vendor_banks WHERE vendor_id='" . $get_logged_user_det["id"] . "'");
 	if (($select_banks == true) && (mysqli_num_rows($select_banks) >= 1)) {
@@ -619,8 +629,8 @@ function alterTransaction($reference, $column_name, $column_value)
 	$column_name = mysqli_real_escape_string($connection_server, trim(strip_tags($column_name)));
 	$column_value = mysqli_real_escape_string($connection_server, trim(strip_tags($column_value)));
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1");
 
 	if (!empty($reference) && !empty($column_name) && !empty($column_value)) {
 		$select_transaction = mysqli_query($connection_server, "SELECT * FROM sas_transactions WHERE vendor_id='" . $get_logged_user_det["vendor_id"] . "' && username='" . $get_logged_user_det["username"] . "' && reference='" . $reference . "'");
@@ -638,8 +648,8 @@ function alterVendorTransaction($reference, $column_name, $column_value)
 	$column_name = mysqli_real_escape_string($connection_server, trim(strip_tags($column_name)));
 	$column_value = mysqli_real_escape_string($connection_server, trim(strip_tags($column_value)));
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "' LIMIT 1");
 
 	if (!empty($reference) && !empty($column_name) && !empty($column_value)) {
 		$select_transaction = mysqli_query($connection_server, "SELECT * FROM sas_vendor_transactions WHERE vendor_id='" . $get_logged_user_det["id"] . "' && reference='" . $reference . "'");
@@ -656,8 +666,8 @@ function getTransaction($reference, $column_name)
 	$reference = mysqli_real_escape_string($connection_server, trim(strip_tags($reference)));
 	$column_name = mysqli_real_escape_string($connection_server, trim(strip_tags($column_name)));
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $get_logged_user_details["username"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $get_logged_user_details["username"] . "' LIMIT 1");
 
 	if (!empty($reference) && !empty($column_name)) {
 
@@ -678,8 +688,8 @@ function transactionActionButton($api_id, $product_id, $transaction_ref, $transa
 {
 	global $connection_server, $get_logged_user_details;
 	if (!empty($api_id) && !empty($product_id)) {
-		$get_user_product_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $product_id . "' LIMIT 1"));
-		$get_user_api_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $api_id . "' LIMIT 1"));
+		$get_user_product_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $product_id . "' LIMIT 1");
+		$get_user_api_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $api_id . "' LIMIT 1");
 
 		if (in_array($get_user_api_details["api_type"], array("electric")) && !strpos($transaction_type, "refund")) {
 			$product_transaction_action_button = '<a href="/web/ViewElectric.php?ref=' . $transaction_ref . '" style="text-decoration: underline; color: green;" class="a-cursor">View Receipt</a>';
@@ -730,8 +740,8 @@ function adminTransactionActionButton($api_id, $product_id, $transaction_ref, $t
 {
 	global $connection_server, $get_logged_admin_details;
 	if (!empty($api_id) && !empty($product_id)) {
-		$get_user_product_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='" . $product_id . "' LIMIT 1"));
-		$get_user_api_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='" . $api_id . "' LIMIT 1"));
+		$get_user_product_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='" . $product_id . "' LIMIT 1");
+		$get_user_api_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_admin_details["id"] . "' && id='" . $api_id . "' LIMIT 1");
 
 		if (in_array($get_user_api_details["api_type"], array("electric")) && !strpos($transaction_type, "refund")) {
 			$product_transaction_action_button = '<a href="/web/ViewElectric.php?ref=' . $transaction_ref . '" style="text-decoration: underline; color: green;" class="a-cursor">View Receipt</a>';
@@ -788,7 +798,7 @@ function alterUser($userID, $column_name, $column_value)
 	$column_value = mysqli_real_escape_string($connection_server, trim(strip_tags($column_value)));
 
 	if (!empty($userID) && !empty($column_name) && !empty($column_value)) {
-		$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
+		$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
 		$get_logged_user_det = mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='$userID'");
 		if (mysqli_num_rows($get_logged_user_det) == 1) {
 			while ($user_details = mysqli_fetch_assoc($get_logged_user_det)) {
@@ -899,7 +909,7 @@ function productIDPurchaseChecker($item_id, $product_type)
 	$product_type = mysqli_real_escape_string($connection_server, trim(strip_tags(strtolower($product_type))));
 
 	if (!empty($item_id) && is_numeric($item_id) && !empty($product_type)) {
-		$get_user_daily_purchase_limit_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_daily_purchase_limit WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' LIMIT 1"));
+		$get_user_daily_purchase_limit_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_daily_purchase_limit WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' LIMIT 1");
 
 		// If limit is not set or set to 0, no limit enforced
 		if(empty($get_user_daily_purchase_limit_details["limit"]) || ($get_user_daily_purchase_limit_details["limit"] <= 0)){
@@ -936,7 +946,7 @@ function updateProductPurchaseList($reference, $item_id, $product_type)
 	if (!empty($reference) && is_numeric($reference) && !empty($item_id) && is_numeric($item_id) && !empty($product_type)) {
 		mysqli_query($connection_server, "INSERT INTO sas_daily_purchase_tracker (vendor_id, reference, product_type, product_id, username, date_purchased) VALUES ('" . $get_logged_user_details["vendor_id"] . "','$reference','$product_type','$item_id','" . $get_logged_user_details["username"] . "','" . date("Y-m-d") . "')");
 
-		$get_user_daily_purchase_limit_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_daily_purchase_limit WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' LIMIT 1"));
+		$get_user_daily_purchase_limit_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_daily_purchase_limit WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' LIMIT 1");
 
 		if(!empty($get_user_daily_purchase_limit_details["limit"]) && ($get_user_daily_purchase_limit_details["limit"] > 0)){
 			$select_item_query = mysqli_query($connection_server, "SELECT * FROM sas_daily_purchase_tracker WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && username='" . $get_logged_user_details["username"] . "' && product_id='$item_id' && product_type='$product_type' && date_purchased='" . date("Y-m-d") . "'");
@@ -947,7 +957,7 @@ function updateProductPurchaseList($reference, $item_id, $product_type)
 				alterUser($get_logged_user_details["username"], "api_status", "2");
 
 				// Email Beginning
-				$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
+				$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
 				$transaction_template_encoded_text_array = array("{admin_firstname}" => $get_vendor_det["firstname"], "{admin_lastname}" => $get_vendor_det["lastname"], "{username}" => $get_logged_user_details["username"], "{firstname}" => $get_logged_user_details["firstname"], "{lastname}" => $get_logged_user_details["lastname"]);
 				$raw_transaction_template_subject = "Urgent - Potential Suspicious Activity for User: [{username}] ([{firstname} {lastname}])";
 				$raw_transaction_template_body = "Dear {admin_firstname} {admin_lastname}, " . "\n\n" . "Please be advised that user [{username}] ([{firstname} {lastname}]) has exceeded their daily transaction limit and has been automatically suspended." . "\n\n" . "As per our security protocols, I recommend you immediately:" . "\n\n" . "Review their recent activity for any suspicious patterns or unusually large transactions." . "\n" . "Contact the user to inquire about their activity and confirm its legitimacy." . "\n" . "If you suspect any illegal activity, please escalate the matter to the appropriate authorities immediately." . "\n\n" . "Thank you for your prompt attention to this matter.";
@@ -1044,7 +1054,7 @@ function timeFrame($time)
 function getUserEmailTemplate($row_id, $column_name)
 {
 	global $connection_server;
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
 	$template_details = mysqli_query($connection_server, "SELECT * FROM sas_email_templates WHERE vendor_id='" . $get_vendor_det["id"] . "' && email_type='$row_id'");
 	if (mysqli_num_rows($template_details) == 1) {
 		$template_array = mysqli_fetch_array($template_details);
@@ -1070,7 +1080,7 @@ function getUserEmailTemplate($row_id, $column_name)
 function getVendorEmailTemplate($row_id, $column_name)
 {
 	global $connection_server;
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
 	$template_details = mysqli_query($connection_server, "SELECT * FROM sas_email_templates WHERE vendor_id='" . $get_vendor_det["id"] . "' && email_type='$row_id'");
 	if (mysqli_num_rows($template_details) == 1) {
 		$template_array = mysqli_fetch_array($template_details);
@@ -1195,13 +1205,13 @@ function sendVendorEmail($recipient_email, $email_subject, $email_body)
 {
 	global $connection_server, $get_logged_user_details, $get_logged_admin_details;
 	if (isset($get_logged_user_details) && !empty($get_logged_user_details["username"])) {
-		$logged_account_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_logged_user_details["vendor_id"] . "'"));
+		$logged_account_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_logged_user_details["vendor_id"] . "'");
 	} else {
 		if (isset($get_logged_admin_details) && !empty($get_logged_admin_details["email"])) {
 			$logged_account_details = $get_logged_admin_details;
 		} else {
-			$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-			$logged_account_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "'"));
+			$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+			$logged_account_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='" . $get_vendor_det["id"] . "'");
 		}
 	}
 	// Always set content-type when sending HTML email
@@ -1226,7 +1236,7 @@ function sendSuperAdminEmail($recipient_email, $email_subject, $email_body)
 	if (isset($get_logged_spadmin_details) && !empty($get_logged_spadmin_details["email"])) {
 		$logged_account_details = $get_logged_spadmin_details;
 	} else {
-		$logged_account_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_super_admin WHERE email='$recipient_email' LIMIT 1"));
+		$logged_account_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_super_admin WHERE email='$recipient_email' LIMIT 1");
 	}
 
 	// Always set content-type when sending HTML email
@@ -1310,7 +1320,7 @@ function createVendorEmailTemplateIfNotExists($email_type, $subject, $body)
 	$body = mysqli_real_escape_string($connection_server, trim(strip_tags($body)));
 
 	if (!empty($subject) && !empty($body) && !empty($email_type)) {
-		$vendor_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "'"));
+		$vendor_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "'");
 		$template_details = mysqli_query($connection_server, "SELECT * FROM sas_email_templates WHERE vendor_id='" . $vendor_details["id"] . "' && email_type='$email_type'");
 		if (mysqli_num_rows($template_details) == 0) {
 			mysqli_query($connection_server, "INSERT INTO sas_email_templates (vendor_id, email_type, subject, body) VALUES ('" . $vendor_details["id"] . "', '$email_type', '$subject', '$body')");
@@ -2432,9 +2442,9 @@ function chargeUserCryptoWallet($type, $currency, $type_alternative, $reference,
 	$transactionTypeArray = array("credit", "debit");
 	$statusArray = array(1, 2, 3);
 
-	$get_vendor_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1"));
-	$get_logged_user_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_user_crypto_ledger_balance WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' && currency='".$currency."' LIMIT 1"));
-	$get_logged_user_main_det = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1"));
+	$get_vendor_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='" . $_SERVER["HTTP_HOST"] . "' LIMIT 1");
+	$get_logged_user_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_user_crypto_ledger_balance WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' && currency='".$currency."' LIMIT 1");
+	$get_logged_user_main_det = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_users WHERE vendor_id='" . $get_vendor_det["id"] . "' && username='" . $_SESSION["user_session"] . "' LIMIT 1");
 
 
 	if (!empty($get_logged_user_det["wallet_balance"]) && is_numeric($get_logged_user_det["wallet_balance"]) && !empty($amount) && is_numeric($amount) && !empty($discounted_amount) && is_numeric($discounted_amount) && ($discounted_amount > 0)) {

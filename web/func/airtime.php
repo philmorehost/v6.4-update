@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 $purchase_method = strtoupper($purchase_method ?? "");
 $json_response_encode = json_encode(array("status" => "failed", "desc" => "Unknown error occurred during processing."));
 $purchase_method_array = array("API", "WEB", "APP");
@@ -24,7 +26,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
         if (!empty($isp) && !empty($phone_no) && is_numeric($phone_no) && !empty($amount) && is_numeric($amount)) {
             if (userBalance(1) >= $amount) {
                 
-                $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_airtime_status WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$isp'"));
+                $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_airtime_status WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$isp'");
                 $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='airtime'");
                 $get_api_enabled_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='airtime' && status='1'");
 
@@ -37,9 +39,9 @@ if (in_array($purchase_method, $purchase_method_array)) {
                                     if ($account_level_table_name_arrays[$get_logged_user_details["account_level"]] == true) {
                                         $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                                         $product_name = strtolower($isp);
-                                        $product_status_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_airtime_status WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                        $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                        $product_discount_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' LIMIT 1"));
+                                        $product_status_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_airtime_status WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                        $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                        $product_discount_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' LIMIT 1");
                                         $discounted_amount = ($discounted_amount - ($discounted_amount * ($product_discount_table["val_1"] / 100)));
                                     }
                                     if (($product_table["status"] == 1) && ($product_status_table["status"] == 1)) {

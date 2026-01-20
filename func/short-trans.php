@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
     if ($connection_server && isset($get_logged_user_details)) {
         $get_requery = isset($_GET["requery"]) ? trim(strip_tags($_GET["requery"])) : '';
         if ($get_requery) {

@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
     // --- DATABASE CONNECTION & VENDOR DETAILS ---
     function get_db_connection() {
         include("func/bc-connect.php");

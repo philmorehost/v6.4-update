@@ -1,4 +1,6 @@
-<?php session_start([
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start([
 	'cookie_lifetime' => 286400,
 	'gc_maxlifetime' => 286400,
 ]);
@@ -192,7 +194,7 @@ if ((!empty($select_vendor_table["bank_code"]) && is_numeric($select_vendor_tabl
 					}
 				}
 			} else {
-				$select_monnify_gateway_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && gateway_name='monnify' LIMIT 1"));
+				$select_monnify_gateway_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && gateway_name='monnify' LIMIT 1");
 				$monnify_create_reserve_account_array = array("accountReference" => $user_monnify_account_reference, "accountName" => $get_logged_user_details["firstname"] . " " . $get_logged_user_details["lastname"] . " " . $get_logged_user_details["othername"], "currencyCode" => "NGN", "contractCode" => $select_monnify_gateway_details["encrypt_key"], "customerEmail" => $get_logged_user_details["email"], "getAllAvailableBanks" => false, "preferredBanks" => ["232", "035", "50515", "058"]);
 				if (strlen($select_vendor_table_bvn) === 11) {
 					$monnify_create_reserve_account_array["bvn"] = $select_vendor_table_bvn;
@@ -217,7 +219,7 @@ if ((!empty($select_vendor_table["bank_code"]) && is_numeric($select_vendor_tabl
 			$get_payvessel_access_token = json_decode(getUserPayvesselAccessToken(), true);
 
 			if ($get_payvessel_access_token["status"] == "success") {
-				$select_payvessel_gateway_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && gateway_name='payvessel' LIMIT 1"));
+				$select_payvessel_gateway_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && gateway_name='payvessel' LIMIT 1");
 				$user_payvessel_account_reference = str_replace([".", "-", ":"], "", $_SERVER["HTTP_HOST"]) . "-" . $get_logged_user_details["username"] . "-" . $get_logged_user_details["email"];
 				$payvessel_create_reserve_account_array = array("email" => $user_payvessel_account_reference, "name" => trim($get_logged_user_details["firstname"] . " " . $get_logged_user_details["lastname"] . " " . $get_logged_user_details["othername"]), "phoneNumber" => $get_logged_user_details["phone_number"], "businessid" => $select_payvessel_gateway_details["encrypt_key"], "bankcode" => ["101", "120001"], "account_type" => "STATIC");
 				if (strlen($select_vendor_table_bvn) === 11) {
@@ -251,7 +253,7 @@ if ((!empty($select_vendor_table["bank_code"]) && is_numeric($select_vendor_tabl
 
 		//Beewave Admin/User BVN Virtual Account Generation
 		if ((!empty($select_vendor_table["nin"]) && is_numeric($select_vendor_table["nin"]) && strlen($select_vendor_table["nin"]) == 11) || (!empty($get_logged_user_details["nin"]) && is_numeric($get_logged_user_details["nin"]) && strlen($get_logged_user_details["nin"]) == 11) || (!empty($select_vendor_table["bvn"]) && is_numeric($select_vendor_table["bvn"]) && strlen($select_vendor_table["bvn"]) == 11) || (!empty($get_logged_user_details["bvn"]) && is_numeric($get_logged_user_details["bvn"]) && strlen($get_logged_user_details["bvn"]) == 11)) {
-			$select_beewave_gateway_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && gateway_name='beewave' LIMIT 1"));
+			$select_beewave_gateway_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_payment_gateways WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && gateway_name='beewave' LIMIT 1");
 			$user_beewave_account_reference = str_replace([".", "-", ":"], "", $_SERVER["HTTP_HOST"]) . "-" . $get_logged_user_details["username"] . "-" . $get_logged_user_details["email"];
 			$beewave_create_reserve_account_array = array("email" => $user_beewave_account_reference, "name" => trim($get_logged_user_details["firstname"] . " " . $get_logged_user_details["lastname"] . " " . $get_logged_user_details["othername"]), "phone" => $get_logged_user_details["phone_number"], "access_key" => $select_beewave_gateway_details["public_key"], "bank_code" => ["110072"]);
 			if (strlen($select_vendor_table_bvn) === 11) {
@@ -656,7 +658,7 @@ if ((!empty($select_vendor_table["bank_code"]) && is_numeric($select_vendor_tabl
                 				$account_level_upgrade_array = array(1 => "smart", 2 => "agent");
                 				foreach ($account_level_upgrade_array as $index => $account_levels) {
                 					if ($index > $get_logged_user_details["account_level"]) {
-                						$get_upgrade_price = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_user_upgrade_price WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && account_type='" . $index . "' LIMIT 1"));
+								$get_upgrade_price = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_user_upgrade_price WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && account_type='" . $index . "' LIMIT 1");
                 						echo '<option value="' . $account_levels . '">' . accountLevel($index) . ' @ N' . toDecimal($get_upgrade_price["price"], 2) . '</option>';
                 					}
                 				}

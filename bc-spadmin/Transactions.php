@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-spadmin-config.php");
 ?>
 <!DOCTYPE html>
@@ -83,7 +85,7 @@
                             while($vendor_transaction = mysqli_fetch_assoc($get_vendor_transaction_details)){
                                 $transaction_type = ucwords($vendor_transaction["type_alternative"]);
 
-                                $vendor_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='".$vendor_transaction["vendor_id"]."' LIMIT 1"));
+                                $vendor_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE id='".$vendor_transaction["vendor_id"]."' LIMIT 1");
                                 if(isset($vendor_details["id"])){
                                     $vendor_vdetails = $vendor_details;
                                 }else{

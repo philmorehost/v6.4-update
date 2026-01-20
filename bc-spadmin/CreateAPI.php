@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start();
     include("../func/bc-spadmin-config.php");
     
     $product_type_array = array("crypto", "airtime", "intl-airtime", "shared-data", "sme-data", "cg-data", "dd-data", "betting", "datacard", "rechargecard", "nairacard", "dollarcard", "electric", "cable", "exam", "bulk-sms");

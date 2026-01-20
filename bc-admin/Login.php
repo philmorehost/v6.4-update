@@ -1,4 +1,6 @@
-<?php session_start([
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); session_start([
     'cookie_lifetime' => 286400,
 	'gc_maxlifetime' => 286400,
 ]);
@@ -17,7 +19,7 @@
     	$email = mysqli_real_escape_string($connection_server, trim(strip_tags(strtolower($_POST["email"]))));
     	$pass = mysqli_real_escape_string($connection_server, trim(strip_tags($_POST["pass"])));
     	if(!empty($email) && !empty($pass)){
-    		$get_vendor_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."'"));
+		$get_vendor_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_vendors WHERE website_url='".$_SERVER["HTTP_HOST"]."'");
     		$get_admin_details = mysqli_query($connection_server, "SELECT * FROM sas_vendors WHERE id='".$get_vendor_details["id"]."' && email='$email'");
 			if(mysqli_num_rows($get_admin_details) == 1){
 				$md5_pass = md5($pass);

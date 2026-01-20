@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 $purchase_method = strtoupper($purchase_method ?? "");
 $json_response_encode = json_encode(array("status" => "failed", "desc" => "Unknown error occurred during processing."));
 $purchase_method_array = array("API", "WEB", "APP");
@@ -25,7 +27,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
             if (!empty($epp) && !empty($quantity)) {
 
                 $exam_type_table_name_arrays = array("waec" => "sas_exam_status", "neco" => "sas_exam_status", "nabteb" => "sas_exam_status", "jamb" => "sas_exam_status");
-                $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $exam_type_table_name_arrays[$epp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$epp'"));
+                $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $exam_type_table_name_arrays[$epp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$epp'");
                 $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='exam'");
                 $get_api_enabled_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='exam' && status='1'");
 
@@ -39,9 +41,9 @@ if (in_array($purchase_method, $purchase_method_array)) {
                                         $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                                         $exam_type_table_name = $exam_type_table_name_arrays[$epp];
                                         $product_name = strtolower($epp);
-                                        $product_status_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $exam_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                        $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                        $product_discount_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' && val_1='" . $quantity . "' LIMIT 1"));
+                                        $product_status_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $exam_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                        $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                        $product_discount_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' && val_1='" . $quantity . "' LIMIT 1");
                                         $amount = $product_discount_table["val_2"];
                                         $discounted_amount = $amount;
                                     }

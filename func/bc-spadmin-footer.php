@@ -2,7 +2,9 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 
-<?php if(isset($_SESSION["product_purchase_response"])){ ?>
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1); if(isset($_SESSION["product_purchase_response"])){ ?>
 
 
 <script>

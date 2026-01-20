@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 $purchase_method = strtoupper($purchase_method ?? "");
 $json_response_encode = json_encode(array("status" => "failed", "desc" => "Unknown error occurred during processing."));
 $purchase_method_array = array("API", "WEB", "APP");
@@ -34,7 +36,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
                 if (!empty($isp) && !empty($iuc_no) && is_numeric($iuc_no) && !empty($quantity)) {
 
                     $cable_type_table_name_arrays = array("startimes" => "sas_cable_status", "dstv" => "sas_cable_status", "gotv" => "sas_cable_status", "showmax" => "sas_cable_status");
-                    $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $cable_type_table_name_arrays[$isp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$isp'"));
+                    $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $cable_type_table_name_arrays[$isp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$isp'");
                     $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='cable'");
                     $get_api_enabled_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='cable' && status='1'");
 
@@ -48,9 +50,9 @@ if (in_array($purchase_method, $purchase_method_array)) {
                                             $acc_level_table_name = $account_level_table_name_arrays[$get_logged_user_details["account_level"]];
                                             $cable_type_table_name = $cable_type_table_name_arrays[$isp];
                                             $product_name = strtolower($isp);
-                                            $product_status_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $cable_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                            $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                            $product_discount_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' && val_1='" . $quantity . "' LIMIT 1"));
+                                            $product_status_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $cable_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                            $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                            $product_discount_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $acc_level_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && api_id='" . $api_detail["id"] . "' && product_id='" . $product_table["id"] . "' && val_1='" . $quantity . "' LIMIT 1");
                                             $amount = $product_discount_table["val_2"];
                                             $discounted_amount = $amount;
                                         }
@@ -205,7 +207,7 @@ if (in_array($purchase_method, $purchase_method_array)) {
         if ($action_function == 3) {
             if (!empty($iuc_no) && is_numeric($iuc_no) && !empty($isp) && !empty($quantity)) {
                 $cable_type_table_name_arrays = array("startimes" => "sas_cable_status", "dstv" => "sas_cable_status", "gotv" => "sas_cable_status", "showmax" => "sas_cable_status");
-                $get_item_status_details = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM " . $cable_type_table_name_arrays[$isp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$isp'"));
+                $get_item_status_details = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM " . $cable_type_table_name_arrays[$isp] . " WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='$isp'");
                 $get_api_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='cable'");
                 $get_api_enabled_lists = mysqli_query($connection_server, "SELECT * FROM sas_apis WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && id='" . $get_item_status_details["api_id"] . "' && api_type='cable' && status='1'");
 
@@ -218,8 +220,8 @@ if (in_array($purchase_method, $purchase_method_array)) {
                                     if ($account_level_table_name_arrays[$get_logged_user_details["account_level"]] == true) {
                                         $cable_type_table_name = $cable_type_table_name_arrays[$isp];
                                         $product_name = strtolower($isp);
-                                        $product_status_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM $cable_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
-                                        $product_table = mysqli_fetch_array(mysqli_query($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1"));
+                                        $product_status_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM $cable_type_table_name WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
+                                        $product_table = mysqli_query_and_fetch_array($connection_server, "SELECT * FROM sas_products WHERE vendor_id='" . $get_logged_user_details["vendor_id"] . "' && product_name='" . $product_name . "' LIMIT 1");
                                     }
                                     if (($product_table["status"] == 1) && ($product_status_table["status"] == 1)) {
                                         $api_gateway_name_file_exists = "cable-" . str_replace(".", "-", $api_detail["api_base_url"]) . ".php";
